@@ -4,11 +4,10 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-import okhttp3.OkHttpClient;
-
 import gov.uspto.bulkdata.downloader.Downloader;
 import joptsimple.OptionParser;
 import joptsimple.OptionSet;
+import okhttp3.OkHttpClient;
 
 /**
  * Download File from URL.

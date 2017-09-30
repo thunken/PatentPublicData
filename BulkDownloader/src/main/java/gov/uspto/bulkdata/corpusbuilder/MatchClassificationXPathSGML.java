@@ -11,9 +11,9 @@ import org.slf4j.LoggerFactory;
 import gov.uspto.bulkdata.find.PatternMatcher;
 import gov.uspto.bulkdata.find.PatternXPath;
 import gov.uspto.patent.PatentDocFormat;
-import gov.uspto.patent.model.classification.PatentClassification;
 import gov.uspto.patent.model.classification.ClassificationType;
 import gov.uspto.patent.model.classification.CpcClassification;
+import gov.uspto.patent.model.classification.PatentClassification;
 import gov.uspto.patent.model.classification.UspcClassification;
 
 /**

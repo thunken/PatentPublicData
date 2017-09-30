@@ -33,10 +33,9 @@ import gov.uspto.patent.PatentReaderException;
 import gov.uspto.patent.bulk.DumpFileAps;
 import gov.uspto.patent.bulk.DumpFileXml;
 import gov.uspto.patent.bulk.DumpReader;
-import gov.uspto.patent.model.classification.PatentClassification;
 import gov.uspto.patent.model.classification.CpcClassification;
+import gov.uspto.patent.model.classification.PatentClassification;
 import gov.uspto.patent.model.classification.UspcClassification;
-
 import joptsimple.OptionParser;
 import joptsimple.OptionSet;
 import okhttp3.HttpUrl;

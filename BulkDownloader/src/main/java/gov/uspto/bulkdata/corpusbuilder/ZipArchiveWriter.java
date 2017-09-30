@@ -1,6 +1,5 @@
 package gov.uspto.bulkdata.corpusbuilder;
 
-import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
 

@@ -1,6 +1,5 @@
 package gov.uspto.bulkdata.cli;
 
-import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -20,7 +19,6 @@ import gov.uspto.bulkdata.downloader.DownloadJob;
 import gov.uspto.bulkdata.downloader.Downloader;
 import gov.uspto.bulkdata.source.Source;
 import gov.uspto.bulkdata.source.Sources;
-
 import joptsimple.OptionParser;
 import joptsimple.OptionSet;
 import okhttp3.HttpUrl;

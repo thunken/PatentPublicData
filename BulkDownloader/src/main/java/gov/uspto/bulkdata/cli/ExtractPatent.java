@@ -21,7 +21,6 @@ import org.slf4j.MDC;
 import com.google.common.base.Preconditions;
 
 import gov.uspto.common.filter.FileFilterChain;
-import gov.uspto.common.filter.SuffixFilter;
 import gov.uspto.patent.PatentDocFormat;
 import gov.uspto.patent.PatentDocFormatDetect;
 import gov.uspto.patent.PatentReader;

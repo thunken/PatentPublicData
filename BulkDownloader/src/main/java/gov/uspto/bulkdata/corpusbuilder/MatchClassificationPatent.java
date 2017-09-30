@@ -14,9 +14,9 @@ import gov.uspto.patent.PatentDocFormat;
 import gov.uspto.patent.PatentReader;
 import gov.uspto.patent.PatentReaderException;
 import gov.uspto.patent.model.Patent;
-import gov.uspto.patent.model.classification.PatentClassification;
 import gov.uspto.patent.model.classification.ClassificationType;
 import gov.uspto.patent.model.classification.CpcClassification;
+import gov.uspto.patent.model.classification.PatentClassification;
 import gov.uspto.patent.model.classification.UspcClassification;
 
 /**

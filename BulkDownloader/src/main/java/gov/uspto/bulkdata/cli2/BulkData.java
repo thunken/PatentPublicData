@@ -15,19 +15,14 @@ import java.util.regex.Pattern;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.google.common.base.Preconditions;
 import com.google.common.base.Splitter;
-import com.google.common.collect.ContiguousSet;
-import com.google.common.collect.DiscreteDomain;
 import com.google.common.collect.LinkedListMultimap;
 import com.google.common.collect.ListMultimap;
-import com.google.common.collect.Range;
 
 import gov.uspto.bulkdata.PageLinkScraper;
 import gov.uspto.bulkdata.downloader.DownloadJob;
 import gov.uspto.bulkdata.downloader.Downloader;
 import gov.uspto.common.DateRange;
-
 import joptsimple.OptionParser;
 import joptsimple.OptionSet;
 import okhttp3.HttpUrl;

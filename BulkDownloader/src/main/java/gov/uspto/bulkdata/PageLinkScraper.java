@@ -17,9 +17,8 @@ import org.slf4j.LoggerFactory;
 
 import com.google.common.base.Preconditions;
 
-import gov.uspto.common.DateRange;
 import gov.uspto.bulkdata.source.Source;
-
+import gov.uspto.common.DateRange;
 import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
