@@ -13,8 +13,6 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 
-import gov.uspto.common.text.StopWord;
-
 public class StopWordTest {
 	private StopWord stopword;
 

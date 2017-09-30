@@ -8,8 +8,6 @@ import java.util.Map.Entry;
 
 import org.junit.Test;
 
-import gov.uspto.common.text.StringCaseUtil;
-
 public class StringCaseTest {
 
 	private static Map<String, String> TitleValidFromTo = new LinkedHashMap<String, String>();
