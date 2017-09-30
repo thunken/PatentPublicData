@@ -57,6 +57,7 @@ import gov.uspto.patent.model.entity.Inventor;
  * @author Brian G. Feldman (brian.feldman@uspto.gov)
  */
 public class Greenbook extends KvParser {
+
 	private static final Logger LOGGER = LoggerFactory.getLogger(Greenbook.class);
 
 	private static List<String> MAINTAIN_SPACE_FIELDS = Arrays.asList(new String[] { "TBL" });
@@ -66,7 +67,16 @@ public class Greenbook extends KvParser {
 	private static List<String> TABLE_FIELDS = Arrays.asList(new String[] { "TBL" });
 
 	public Greenbook() {
-		super(MAINTAIN_SPACE_FIELDS, PARAGRAPH_FIELDS, HEADER_FIELDS, TABLE_FIELDS);
+		this(false);
+	}
+
+	/**
+	 * @param normalize
+	 *            whether {@link DotCodes} should be replaced by their Unicode or
+	 *            XML equivalents
+	 */
+	public Greenbook(final boolean normalize) {
+		super(newKvReader(normalize));
 	}
 
 	/*
@@ -222,6 +232,13 @@ public class Greenbook extends KvParser {
 			Patent patent = greenbook.parse(file);
 			System.out.println(patent.toString());
 		}
+	}
+
+	private static GreenbookKvReader newKvReader(final boolean normalize) {
+		final GreenbookKvReader kvReader = new GreenbookKvReader(normalize);
+		kvReader.setMaintainSpaceFields(MAINTAIN_SPACE_FIELDS);
+		kvReader.setFieldsForId(PARAGRAPH_FIELDS, HEADER_FIELDS, TABLE_FIELDS);
+		return kvReader;
 	}
 
 }

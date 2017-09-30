@@ -20,12 +20,17 @@ import gov.uspto.patent.PatentReaderException;
 import gov.uspto.patent.model.Patent;
 
 public abstract class KvParser implements Dom4j {
+
 	private static final Logger LOGGER = LoggerFactory.getLogger(KvParser.class);
 
 	private final KvReader kvReader;
 
 	public KvParser() {
 		kvReader = new KvReader();
+	}
+
+	public KvParser(final KvReader reader) {
+		kvReader = Preconditions.checkNotNull(reader);
 	}
 
 	public KvParser(Collection<String> maintainSpaceFields, Collection<String> paragraphFields,
