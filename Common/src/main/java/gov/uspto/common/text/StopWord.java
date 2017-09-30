@@ -22,22 +22,18 @@ import com.google.common.collect.Lists;
  *
  * Stop Words, many different ways.
  *
- * Match:
- * 	1) Identical Match (isStopWord)
- * 	2) Phrase Contains (contains)
- * 	3) Phrase Starts With (hasLeading)
- * 	4) Phrase Ends With (hasTrailing)
- * 	5) Phrase Edge, ends with or start with (hasEdge)
+ * Match: 1) Identical Match (isStopWord) 2) Phrase Contains (contains) 3)
+ * Phrase Starts With (hasLeading) 4) Phrase Ends With (hasTrailing) 5) Phrase
+ * Edge, ends with or start with (hasEdge)
  * 
- * Remove:
- * 	1) Removal All (remove)
- * 	2) Remove Starts With (removeLeading)
- * 	3) Remove Ends With (removeTrailing)
- * 	4) Remove Edge, ends with or start with (removeEdge)
+ * Remove: 1) Removal All (remove) 2) Remove Starts With (removeLeading) 3)
+ * Remove Ends With (removeTrailing) 4) Remove Edge, ends with or start with
+ * (removeEdge)
  *
- * @FIXME Phrases containing a stopword with accompanying punctuation will not match, since splitting on whitespace.
+ * @FIXME Phrases containing a stopword with accompanying punctuation will not
+ *        match, since splitting on whitespace.
  *
- * {@code
+ *        {@code
  * 	stopword.has(string, StopWord.LOCATION.ANY);
  * 	stopword.remove(string, StopWord.LOCATION.ANY);
  * }
@@ -49,7 +45,7 @@ public class StopWord {
 
 	public enum LOCATION {
 		CONTAINS, // on remove: entire phrase is killed/removed if stopword is found.
-		EQUAL, // on remove: entire phrase is removed if exact match. 
+		EQUAL, // on remove: entire phrase is removed if exact match.
 		ANY, // on remove: remove word from phrase.
 		EDGE, // on remove: remove word from edge of phrase.
 		TRAILING, // on remove: remove word from end of phrase.

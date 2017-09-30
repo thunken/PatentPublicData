@@ -12,26 +12,26 @@ import java.util.List;
  */
 public class StringFilterChain implements StringFilter {
 
-    public List<StringFilter> filters = new ArrayList<StringFilter>();
+	public List<StringFilter> filters = new ArrayList<StringFilter>();
 
-    public void addRule(StringFilter... rules) {
-        for (StringFilter rule : rules) {
-            filters.add(rule);
-        }
-    }
+	public void addRule(StringFilter... rules) {
+		for (StringFilter rule : rules) {
+			filters.add(rule);
+		}
+	}
 
-    @Override
-    public boolean accept(String filename) {
-        for (StringFilter rule : filters) {
-            if (!rule.accept(filename)) {
-                return false;
-            }
-        }
-        return true;
-    }
+	@Override
+	public boolean accept(String filename) {
+		for (StringFilter rule : filters) {
+			if (!rule.accept(filename)) {
+				return false;
+			}
+		}
+		return true;
+	}
 
-    @Override
-    public String toString() {
-        return "StringFilter [filters=" + Arrays.toString(filters.toArray()) + "]";
-    }
+	@Override
+	public String toString() {
+		return "StringFilter [filters=" + Arrays.toString(filters.toArray()) + "]";
+	}
 }

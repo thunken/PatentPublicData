@@ -4,23 +4,23 @@ import java.util.function.Predicate;
 import java.util.regex.Pattern;
 
 public class RegexPredicate implements Predicate<String> {
-    private Pattern regexPattern;
+	private Pattern regexPattern;
 
-    public RegexPredicate(String regex) {
-        this.regexPattern = Pattern.compile(regex);
-    }
+	public RegexPredicate(String regex) {
+		this.regexPattern = Pattern.compile(regex);
+	}
 
-    @Override
-    public boolean test(String valueStr) {
-        return regexPattern.matcher(valueStr).matches();
-    }
+	@Override
+	public boolean test(String valueStr) {
+		return regexPattern.matcher(valueStr).matches();
+	}
 
-    public Pattern getRegexPattern() {
-        return regexPattern;
-    }
+	public Pattern getRegexPattern() {
+		return regexPattern;
+	}
 
-    @Override
-    public String toString() {
-        return "RegexPredicate [regexPattern=" + regexPattern + "]";
-    }
+	@Override
+	public String toString() {
+		return "RegexPredicate [regexPattern=" + regexPattern + "]";
+	}
 }

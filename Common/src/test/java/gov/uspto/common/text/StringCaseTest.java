@@ -26,13 +26,14 @@ public class StringCaseTest {
 
 	@Test
 	public void capitalizeFirstLetterTestArray() {
-		assertEquals(new String[]{"Computer", "Laptop"}, StringCaseUtil.capitalizeFirstLetter(new String[]{"computer", "laptop"}));
+		assertEquals(new String[] { "Computer", "Laptop" },
+				StringCaseUtil.capitalizeFirstLetter(new String[] { "computer", "laptop" }));
 	}
 
 	@Test
-	public void TitleCaseTest(){
-		for (Entry<String,String> validFromTo: TitleValidFromTo.entrySet()){
-			assertEquals( validFromTo.getValue(), StringCaseUtil.toTitleCase(validFromTo.getKey()));
+	public void TitleCaseTest() {
+		for (Entry<String, String> validFromTo : TitleValidFromTo.entrySet()) {
+			assertEquals(validFromTo.getValue(), StringCaseUtil.toTitleCase(validFromTo.getKey()));
 		}
 	}
 
