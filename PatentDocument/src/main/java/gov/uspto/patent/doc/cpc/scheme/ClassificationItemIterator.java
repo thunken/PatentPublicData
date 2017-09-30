@@ -11,15 +11,16 @@ import org.slf4j.LoggerFactory;
 /**
  * ClassificationItem Tree Iterator
  *
- *<p>
- * Iterator Walks the ClassificationItem item tree, which includes each ClassificationItem
- * and all sub ClassificationItems.
- *</p>
+ * <p>
+ * Iterator Walks the ClassificationItem item tree, which includes each
+ * ClassificationItem and all sub ClassificationItems.
+ * </p>
  *
- *<p>
- * An iterator chain is used, upon retrieving each ClassificaitonItem its subitem iterator is added to the chain of iterators.
- * Each iterator is exhausted before moving onto the next.
- *</p>
+ * <p>
+ * An iterator chain is used, upon retrieving each ClassificaitonItem its
+ * subitem iterator is added to the chain of iterators. Each iterator is
+ * exhausted before moving onto the next.
+ * </p>
  *
  * @author Brian G. Feldman (brian.feldman@uspto.gov)
  *
@@ -37,9 +38,10 @@ public class ClassificationItemIterator implements Iterator<ClassificationItem> 
 	}
 
 	/**
-	 * Updates the current iterator field to ensure that the current Iterator is not exhausted
+	 * Updates the current iterator field to ensure that the current Iterator is not
+	 * exhausted
 	 */
-	protected void updateCurrentIterator() {		
+	protected void updateCurrentIterator() {
 		if (currentIterator == null) {
 			if (iteratorChain.isEmpty()) {
 				currentIterator = Collections.emptyIterator();

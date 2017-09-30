@@ -7,9 +7,9 @@ import gov.uspto.patent.model.PatentType;
 /**
  * Description Rule
  * 
- *<p>
+ * <p>
  * For Utility Patent ensure content exists
- *</p>
+ * </p>
  */
 public class DescriptionRule implements Validator<Patent> {
 

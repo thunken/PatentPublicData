@@ -36,7 +36,7 @@ public class AbstractRuleTest {
 	@Test
 	public void passLenGood() {
 		String abstractTxt = "The United States Patent and Trademark Office (USPTO) is an agency in the U.S. Department of Commerce that issues patents to inventors and businesses for their inventions, and trademark registration for product and intellectual property identification. The USPTO is unique among federal agencies because it operates solely on fees collected by its users, and not on taxpayer dollars.[2]";
-		
+
 		PatentApplication patent = new PatentApplication(new DocumentId(CountryCode.US, "99999"), PatentType.UTILITY);
 		Abstract abst = new Abstract(abstractTxt, new DummyFormattedText());
 		patent.setAbstract(abst);

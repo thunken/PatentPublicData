@@ -49,17 +49,15 @@ public class FormattedTextTest {
 	}
 
 	/*
-	@Test
-	public void formula() {
-		String input = "<in-line-formula>c=a+b</in-line-formula>";
-
-		String expect = "<span id=\"FOR-0001\" class=\"formula\">c=a+b</span>";
-
-		String actual = format.getSimpleHtml(input);
-
-		assertEquals(expect, actual);
-	}
-	*/
+	 * @Test public void formula() { String input =
+	 * "<in-line-formula>c=a+b</in-line-formula>";
+	 * 
+	 * String expect = "<span id=\"FOR-0001\" class=\"formula\">c=a+b</span>";
+	 * 
+	 * String actual = format.getSimpleHtml(input);
+	 * 
+	 * assertEquals(expect, actual); }
+	 */
 
 	@Test
 	public void table() {
@@ -68,24 +66,25 @@ public class FormattedTextTest {
 		stb.append("<tgroup align=\"left\" colsep=\"0\" rowsep=\"0\" cols=\"2\">\n");
 		stb.append("<colspec colname=\"offset\" colwidth=\"21pt\" align=\"left\"/>\n");
 		stb.append("<colspec colname=\"1\" colwidth=\"196pt\" align=\"left\"/>\n");
-		stb.append("<thead><row><entry>head1</entry><entry namest=\"offset\" nameend=\"1\" align=\"center\" rowsep=\"1\">head2</entry></row></thead>\n");
+		stb.append(
+				"<thead><row><entry>head1</entry><entry namest=\"offset\" nameend=\"1\" align=\"center\" rowsep=\"1\">head2</entry></row></thead>\n");
 		stb.append("<tbody valign=\"top\"><row><entry/><entry morerows=\"1\">cell data</entry></row></tbody>\n");
 		stb.append("</tgroup></table>");
 		String input = stb.toString();
 
 		StringBuilder expectStb = new StringBuilder();
 		expectStb.append("\n\n\n<table id=\"TBL-0001\">");
-		expectStb.append("<colgroup><col width=\"21pt\" align=\"left\" /><col width=\"196pt\" align=\"left\" /></colgroup>\n");
+		expectStb.append(
+				"<colgroup><col width=\"21pt\" align=\"left\" /><col width=\"196pt\" align=\"left\" /></colgroup>\n");
 		expectStb.append("<thead><tr><th>head1</th><th align=\"center\">head2</th></tr></thead>\n");
 		expectStb.append("<tbody valign=\"top\"><tr><td></td><td rowspan=\"2\">cell data</td></tr></tbody>\n");
 		expectStb.append("</table>");
 		String expect = expectStb.toString();
-		
+
 		String actual = format.getSimpleHtml(input);
 
 		assertEquals(expect, actual);
 	}
-
 
 	@Test
 	public void subSupUnicode() {
@@ -108,7 +107,7 @@ public class FormattedTextTest {
 
 		assertEquals(expect, actual);
 	}
-	
+
 	@Test
 	public void MathML_html() {
 		String intput = "<math><mrow><mrow><msup><mi>x</mi><mn>2</mn></msup><mo>+</mo><mrow><mn>4</mn><mo>+</mo><mi>x</mi></mrow><mo>+</mo><mn>4</mn></mrow><mo>=</mo><mn>0</mn></mrow></math>";

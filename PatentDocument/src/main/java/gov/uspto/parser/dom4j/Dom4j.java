@@ -7,5 +7,4 @@ import gov.uspto.patent.model.Patent;
 
 public interface Dom4j {
 	public Patent parse(Document document) throws PatentReaderException;
-}	
-
+}

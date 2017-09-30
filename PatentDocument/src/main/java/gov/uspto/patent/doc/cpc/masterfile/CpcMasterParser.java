@@ -32,7 +32,8 @@ import joptsimple.OptionSet;
  * Build CSV File from CPC Master
  * 
  * <p>
- * CSV fields: grantIdFull,grantCC,grantId,grantKind,appIdFull,appCC,appId,appKind,cpcLevel,cpcClass
+ * CSV fields:
+ * grantIdFull,grantCC,grantId,grantKind,appIdFull,appCC,appId,appKind,cpcLevel,cpcClass
  * </p>
  * 
  * <pre>
@@ -42,155 +43,159 @@ import joptsimple.OptionSet;
  * </pre>
  * 
  * <p>
- * --input="..\download\US_Grant_CPC_MCF_XML_2016-12-31.zip" --cpc="H04N,H04H,G06F"
+ * --input="..\download\US_Grant_CPC_MCF_XML_2016-12-31.zip"
+ * --cpc="H04N,H04H,G06F"
  * <p>
  * 
  * @author Brian G. Feldman (brian.feldman@uspto.gov)
  *
  */
 public class CpcMasterParser extends BulkArchive {
-    private static final Logger LOGGER = LoggerFactory.getLogger(CpcMasterParser.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(CpcMasterParser.class);
 
-    //private static final int CPU_PROCESSORS = Runtime.getRuntime().availableProcessors();
+	// private static final int CPU_PROCESSORS =
+	// Runtime.getRuntime().availableProcessors();
 
-    private static FileFilter fileFilter = new SuffixFilter("xml");
+	private static FileFilter fileFilter = new SuffixFilter("xml");
 
-    private DocumentBuilder<MasterClassificationRecord> docBuilder;
-    private Path outputDir;
-    private Predicate<PatentClassification> classPredicate;
+	private DocumentBuilder<MasterClassificationRecord> docBuilder;
+	private Path outputDir;
+	private Predicate<PatentClassification> classPredicate;
 
-    private TransferQueue<Runnable> recordQueue;
+	private TransferQueue<Runnable> recordQueue;
 
-    public CpcMasterParser(File file, DocumentBuilder<MasterClassificationRecord> docBuilder, Path outputDir) {
-        super(file, fileFilter);
-        this.outputDir = outputDir;
-        this.docBuilder = docBuilder;
-    }
+	public CpcMasterParser(File file, DocumentBuilder<MasterClassificationRecord> docBuilder, Path outputDir) {
+		super(file, fileFilter);
+		this.outputDir = outputDir;
+		this.docBuilder = docBuilder;
+	}
 
-    public void setClassificationPredicate(Predicate<PatentClassification> predicate) {
-        this.classPredicate = predicate;
-    }
+	public void setClassificationPredicate(Predicate<PatentClassification> predicate) {
+		this.classPredicate = predicate;
+	}
 
-    public void skipMasterDoc(int skip) {
-        skip(skip);
-    }
+	public void skipMasterDoc(int skip) {
+		skip(skip);
+	}
 
-    public void process(int maxThreads) {
-        recordQueue = new LinkedTransferQueue<Runnable>();
+	public void process(int maxThreads) {
+		recordQueue = new LinkedTransferQueue<Runnable>();
 
-        ThreadPoolExecutor executor = new ThreadPoolExecutor(maxThreads, maxThreads, 1, TimeUnit.MINUTES, recordQueue,
-                new ThreadPoolExecutor.CallerRunsPolicy());
-        executor.prestartAllCoreThreads();
+		ThreadPoolExecutor executor = new ThreadPoolExecutor(maxThreads, maxThreads, 1, TimeUnit.MINUTES, recordQueue,
+				new ThreadPoolExecutor.CallerRunsPolicy());
+		executor.prestartAllCoreThreads();
 
-        CpcMasterReader reader = new CpcMasterReader();
+		CpcMasterReader reader = new CpcMasterReader();
 
-        if (classPredicate != null) {
-            reader.setClassificationPredicate(classPredicate);
-        }
+		if (classPredicate != null) {
+			reader.setClassificationPredicate(classPredicate);
+		}
 
-        while (hasNext()) {
-            DumpFile dumpFile = next();
-            File outputFile = outputDir.resolve("cpc_master_" + dumpFile.getFile().getName() + ".csv").toFile();
+		while (hasNext()) {
+			DumpFile dumpFile = next();
+			File outputFile = outputDir.resolve("cpc_master_" + dumpFile.getFile().getName() + ".csv").toFile();
 
-            DumpFileProcessThread workThread = new DumpFileProcessThread(dumpFile, reader, docBuilder, outputFile); // @TODO add predicate.
+			DumpFileProcessThread workThread = new DumpFileProcessThread(dumpFile, reader, docBuilder, outputFile); // @TODO
+																													// add
+																													// predicate.
 
-            if (recordQueue.size() < maxThreads * 3) {
-                recordQueue.add(workThread);
-            } else {
-                try {
-                    recordQueue.transfer(workThread);
-                } catch (InterruptedException e) {
-                    LOGGER.error("LinkedTransferQueue Interrupted", e);
-                }
-            }
-        }
+			if (recordQueue.size() < maxThreads * 3) {
+				recordQueue.add(workThread);
+			} else {
+				try {
+					recordQueue.transfer(workThread);
+				} catch (InterruptedException e) {
+					LOGGER.error("LinkedTransferQueue Interrupted", e);
+				}
+			}
+		}
 
-        executor.shutdown();
+		executor.shutdown();
 
-        while (!executor.isTerminated()) {
-            try {
-                Thread.sleep(10);
-            } catch (InterruptedException e) {
-                LOGGER.error("ThreadPoolExecutor Interrupted", e);
-            }
-        }
-    }
+		while (!executor.isTerminated()) {
+			try {
+				Thread.sleep(10);
+			} catch (InterruptedException e) {
+				LOGGER.error("ThreadPoolExecutor Interrupted", e);
+			}
+		}
+	}
 
-    public static void main(String[] args) throws IOException {
+	public static void main(String[] args) throws IOException {
 
-        LOGGER.info("--- START ---");
+		LOGGER.info("--- START ---");
 
-        OptionParser parser = new OptionParser() {
-            {
-                accepts("input").withRequiredArg().ofType(String.class).describedAs("Input Master CPC Zip File")
-                        .required();
-                accepts("skip").withOptionalArg().ofType(Integer.class).describedAs("skip number of master cpc files")
-                        .defaultsTo(0);
-                accepts("limit").withOptionalArg().ofType(Integer.class).describedAs("limit master cpc files to parse")
-                        .defaultsTo(0);
-                accepts("threads").withOptionalArg().ofType(Integer.class).describedAs("Threads to spawn")
-                        .defaultsTo(5);
-                accepts("outdir").withOptionalArg().ofType(String.class).describedAs("directory").defaultsTo("output");
-                accepts("cpc").withOptionalArg().ofType(String.class)
-                        .describedAs("comma separated list of wanted CPC Classifications");
-            }
-        };
+		OptionParser parser = new OptionParser() {
+			{
+				accepts("input").withRequiredArg().ofType(String.class).describedAs("Input Master CPC Zip File")
+						.required();
+				accepts("skip").withOptionalArg().ofType(Integer.class).describedAs("skip number of master cpc files")
+						.defaultsTo(0);
+				accepts("limit").withOptionalArg().ofType(Integer.class).describedAs("limit master cpc files to parse")
+						.defaultsTo(0);
+				accepts("threads").withOptionalArg().ofType(Integer.class).describedAs("Threads to spawn")
+						.defaultsTo(5);
+				accepts("outdir").withOptionalArg().ofType(String.class).describedAs("directory").defaultsTo("output");
+				accepts("cpc").withOptionalArg().ofType(String.class)
+						.describedAs("comma separated list of wanted CPC Classifications");
+			}
+		};
 
-        OptionSet options = parser.parse(args);
-        if (!options.hasOptions()) {
-            parser.printHelpOn(System.out);
-            System.exit(1);
-        }
+		OptionSet options = parser.parse(args);
+		if (!options.hasOptions()) {
+			parser.printHelpOn(System.out);
+			System.exit(1);
+		}
 
-        String inputZipFile = (String) options.valueOf("input");
-        Path zipFilePath = Paths.get(inputZipFile);
-        File zipFile = zipFilePath.toFile();
-        if (!zipFile.canRead()) {
-            LOGGER.error("Failed to read: '{}'", zipFile.getAbsolutePath());
-            System.exit(1);
-        }
+		String inputZipFile = (String) options.valueOf("input");
+		Path zipFilePath = Paths.get(inputZipFile);
+		File zipFile = zipFilePath.toFile();
+		if (!zipFile.canRead()) {
+			LOGGER.error("Failed to read: '{}'", zipFile.getAbsolutePath());
+			System.exit(1);
+		}
 
-        int skip = (Integer) options.valueOf("skip");
-        int limit = (Integer) options.valueOf("limit"); // limit is not currently used.
-        int threads = (Integer) options.valueOf("threads");
-        String outDir = (String) options.valueOf("outdir");
-        Path outputPath = Paths.get(outDir);
+		int skip = (Integer) options.valueOf("skip");
+		int limit = (Integer) options.valueOf("limit"); // limit is not currently used.
+		int threads = (Integer) options.valueOf("threads");
+		String outDir = (String) options.valueOf("outdir");
+		Path outputPath = Paths.get(outDir);
 
-        /*
-         * Cpc Predicates
-         */
-        String cpcInput = (String) options.valueOf("cpc");
-        Predicate<PatentClassification> classPredicate = null;
-        if (cpcInput != null) {
-            Iterable<String> wantedCpcClasses = Splitter.on(',').trimResults().omitEmptyStrings().split(cpcInput);
-            LOGGER.info("Classifications wanted: {}", wantedCpcClasses);
-            classPredicate = ClassificationPredicate.isContained(wantedCpcClasses, CpcClassification.class);
-            LOGGER.info("Classification predicate built");
-        }
+		/*
+		 * Cpc Predicates
+		 */
+		String cpcInput = (String) options.valueOf("cpc");
+		Predicate<PatentClassification> classPredicate = null;
+		if (cpcInput != null) {
+			Iterable<String> wantedCpcClasses = Splitter.on(',').trimResults().omitEmptyStrings().split(cpcInput);
+			LOGGER.info("Classifications wanted: {}", wantedCpcClasses);
+			classPredicate = ClassificationPredicate.isContained(wantedCpcClasses, CpcClassification.class);
+			LOGGER.info("Classification predicate built");
+		}
 
-        if (!outputPath.toFile().isDirectory()) {
-            outputPath.toFile().mkdir();
-        }
+		if (!outputPath.toFile().isDirectory()) {
+			outputPath.toFile().mkdir();
+		}
 
-        MasterCpcCsvBuilder docBuilder = new MasterCpcCsvBuilder();
+		MasterCpcCsvBuilder docBuilder = new MasterCpcCsvBuilder();
 
-        CpcMasterParser cpcMaster = new CpcMasterParser(zipFile, docBuilder, outputPath);
+		CpcMasterParser cpcMaster = new CpcMasterParser(zipFile, docBuilder, outputPath);
 
-        if (classPredicate != null) {
-            cpcMaster.setClassificationPredicate(classPredicate);
-        }
+		if (classPredicate != null) {
+			cpcMaster.setClassificationPredicate(classPredicate);
+		}
 
-        cpcMaster.open();
+		cpcMaster.open();
 
-        if (skip > 0) {
-            cpcMaster.skipMasterDoc(skip);
-        }
+		if (skip > 0) {
+			cpcMaster.skipMasterDoc(skip);
+		}
 
-        cpcMaster.process(threads);
+		cpcMaster.process(threads);
 
-        cpcMaster.close();
+		cpcMaster.close();
 
-        LOGGER.info("--- DONE ---");
-    }
+		LOGGER.info("--- DONE ---");
+	}
 
 }

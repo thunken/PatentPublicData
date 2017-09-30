@@ -10,7 +10,7 @@ public class DescriptionFiguresRule implements Validator<Patent> {
 	@Override
 	public boolean test(Patent patent) {
 		if (PatentType.UTILITY.equals(patent.getPatentType())) {
-			if (patent.getDescription() == null || patent.getDescription().getFigures().isEmpty() ) {
+			if (patent.getDescription() == null || patent.getDescription().getFigures().isEmpty()) {
 				return false;
 			}
 		}

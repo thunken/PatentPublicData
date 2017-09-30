@@ -19,17 +19,17 @@ public class IpcClassificationTest {
 	}
 
 	@Test(expected = ParseException.class)
-	public void failBlank() throws ParseException {		
+	public void failBlank() throws ParseException {
 		IpcClassification ipc = new IpcClassification();
 		ipc.parseText("");
 	}
 
 	@Test
 	public void validParseCheck() throws ParseException {
-		for (Entry<String,String> check: validFromTo.entrySet()){
+		for (Entry<String, String> check : validFromTo.entrySet()) {
 			IpcClassification ipc = new IpcClassification();
 			ipc.parseText(check.getKey());
-			assertEquals( check.getValue(), ipc.getTextNormalized());
+			assertEquals(check.getValue(), ipc.getTextNormalized());
 		}
 	}
 }

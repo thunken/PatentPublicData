@@ -34,17 +34,16 @@ public class LocarnoClassification extends PatentClassification {
 
 	@Override
 	public String[] getParts() {
-		return new String[]{mainClass, subClass};
+		return new String[] { mainClass, subClass };
 	}
 
 	@Override
 	public int getDepth() {
 		int classDepth = 0;
 
-		if (subClass != null && subClass.isEmpty()){
+		if (subClass != null && subClass.isEmpty()) {
 			classDepth = 2;
-		}
-		else if (mainClass != null){
+		} else if (mainClass != null) {
 			classDepth = 1;
 		}
 
@@ -74,7 +73,7 @@ public class LocarnoClassification extends PatentClassification {
 	}
 
 	@Override
-	public boolean isContained(PatentClassification check){
+	public boolean isContained(PatentClassification check) {
 		if (check == null || !(check instanceof LocarnoClassification)) {
 			return false;
 		}

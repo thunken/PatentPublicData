@@ -21,7 +21,7 @@ public abstract class Dom4JParser implements Dom4j {
 
 	/**
 	 * Parse CharSequence (String, StringBuffer, StringBuilder, CharBuffer)
-	 *  
+	 * 
 	 * @param xmlString
 	 * @return
 	 * @throws PatentReaderException
@@ -29,7 +29,7 @@ public abstract class Dom4JParser implements Dom4j {
 	public Patent parse(CharSequence xmlString) throws PatentReaderException {
 		Preconditions.checkNotNull(xmlString, "xmlString can not be Null");
 
-		try (StringReader reader = new StringReader(xmlString.toString())){
+		try (StringReader reader = new StringReader(xmlString.toString())) {
 			return parse(reader);
 		}
 	}
@@ -40,18 +40,20 @@ public abstract class Dom4JParser implements Dom4j {
 	 * @param file
 	 * @return
 	 * @throws PatentReaderException
-	 * @throws IOException 
+	 * @throws IOException
 	 */
 	public Patent parse(File file) throws PatentReaderException, IOException {
 		Preconditions.checkNotNull(file, "File can not be Null");
 
-		try(FileReader reader = new FileReader(file)){
+		try (FileReader reader = new FileReader(file)) {
 			return parse(reader);
 		}
 	}
 
 	/**
-	 * Parse InputStream (ByteArrayInputStream, FileInputStream, FilterInputStream, InputStream, ObjectInputStream, PipedInputStream, SequenceInputStream, StringBufferInputStream)
+	 * Parse InputStream (ByteArrayInputStream, FileInputStream, FilterInputStream,
+	 * InputStream, ObjectInputStream, PipedInputStream, SequenceInputStream,
+	 * StringBufferInputStream)
 	 * 
 	 * @param inputStream
 	 * @return
@@ -69,7 +71,8 @@ public abstract class Dom4JParser implements Dom4j {
 	}
 
 	/**
-	 * Parse Reader (BufferedReader, CharArrayReader, FilterReader, InputStreamReader, PipedReader, StringReader)
+	 * Parse Reader (BufferedReader, CharArrayReader, FilterReader,
+	 * InputStreamReader, PipedReader, StringReader)
 	 * 
 	 * @param reader
 	 * @return
@@ -79,11 +82,11 @@ public abstract class Dom4JParser implements Dom4j {
 		try {
 			SAXReader sax = new SAXReader(false);
 			sax.setFeature("http://apache.org/xml/features/nonvalidating/load-external-dtd", false);
-			//sax.setEntityResolver(new SystemEntityResolver());
+			// sax.setEntityResolver(new SystemEntityResolver());
 			Document document = sax.read(reader);
 			return parse(document);
 		} catch (DocumentException | SAXException e) {
-		//} catch (DocumentException e){
+			// } catch (DocumentException e){
 			throw new PatentReaderException(e);
 		}
 	}

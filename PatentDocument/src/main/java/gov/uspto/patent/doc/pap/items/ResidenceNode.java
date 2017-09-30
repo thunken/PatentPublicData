@@ -12,7 +12,9 @@ import gov.uspto.patent.model.entity.Address;
 /**
  * Residence or Address
  *
- *<p><pre>
+ * <p>
+ * 
+ * <pre>
  * {@code}
  * <residence-us>
  *   <city>SALT LAKE CITY</city>
@@ -20,15 +22,19 @@ import gov.uspto.patent.model.entity.Address;
  *   <country-code>US</country-code>
  * </residence-us>
  * }
- *</pre></p>
+ * </pre>
+ * </p>
  * 
- *<p><pre>
+ * <p>
+ * 
+ * <pre>
  * {@code
  * <!ELEMENT residence  (military-service | ( (residence-us | residence-non-us), citizenship?) ) >
  * <!ELEMENT residence-us  (city,state,country-code) >
  * <!ELEMENT residence-non-us (city,state?,country-code) >
  * }
- *</pre><p>
+ * </pre>
+ * <p>
  * 
  * @author Brian G. Feldman (brian.feldman@uspto.gov)
  *

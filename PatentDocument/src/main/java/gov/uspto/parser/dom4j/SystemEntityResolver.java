@@ -12,7 +12,7 @@ public class SystemEntityResolver implements EntityResolver {
 	@Override
 	public InputSource resolveEntity(String publicId, String systemId) throws SAXException, IOException {
 
-		 System.out.println("Resolving entity: " + publicId);
+		System.out.println("Resolving entity: " + publicId);
 
 		if (publicId.equals("html-entities.dtd")) {
 			InputStream resourceAsStream = getResource("../PatentDocument/src/main/resources/dtd/html-entities.dtd");

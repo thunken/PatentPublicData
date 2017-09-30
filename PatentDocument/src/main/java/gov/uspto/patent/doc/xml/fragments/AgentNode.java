@@ -60,8 +60,7 @@ public class AgentNode extends DOMFragmentReader<List<Agent>> {
 		}
 
 		/*
-		 * If Agents are not defined then use correspondence-address if
-		 * available.
+		 * If Agents are not defined then use correspondence-address if available.
 		 */
 		@SuppressWarnings("unchecked")
 		List<Node> correspondenceNodes = document.selectNodes(FRAGMENT_PATH2);

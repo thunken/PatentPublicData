@@ -5,11 +5,14 @@ import gov.uspto.patent.model.Patent;
 /**
  * Patent Title Rule
  * 
- *<p><pre>
+ * <p>
+ * 
+ * <pre>
  * 1) Title Field Exists
  * 2) Title length 3 or more characters
  * 3) Title length less than 500 characters
- *</pre></p> 
+ * </pre>
+ * </p>
  */
 public class TitleRule implements Validator<Patent> {
 

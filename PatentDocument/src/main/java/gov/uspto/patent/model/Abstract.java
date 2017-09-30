@@ -16,7 +16,7 @@ public class Abstract extends FreetextField {
 	public void setRawText(String fieldRawText) {
 		this.rawText = fieldRawText;
 	}
-	
+
 	public String getRawText() {
 		return rawText;
 	}

@@ -42,17 +42,17 @@ public class DocumentIdNode extends ItemReader<DocumentId> {
 
 		Node countryN = itemNode.selectSingleNode("country-code");
 		CountryCode countryCode = CountryCode.UNKNOWN;
-		if (countryN == null){
-		    countryCode = fallbackCountryCode;
+		if (countryN == null) {
+			countryCode = fallbackCountryCode;
 		} else {
-    		try {
-    			countryCode = CountryCode.fromString(countryN.getText());
-    			if (CountryCode.UNDEFINED.equals(countryCode)){
-    			    countryCode = fallbackCountryCode;
-    			}
-    		} catch (InvalidDataException e2) {
-    			LOGGER.warn("Invalid CountryCode '{}', from: {}", countryN.getText(), itemNode.asXML(), e2);
-    		}
+			try {
+				countryCode = CountryCode.fromString(countryN.getText());
+				if (CountryCode.UNDEFINED.equals(countryCode)) {
+					countryCode = fallbackCountryCode;
+				}
+			} catch (InvalidDataException e2) {
+				LOGGER.warn("Invalid CountryCode '{}', from: {}", countryN.getText(), itemNode.asXML(), e2);
+			}
 		}
 
 		Node kindN = itemNode.selectSingleNode("kind-code");

@@ -10,18 +10,18 @@ public abstract class Name {
 
 	private final String fullName;
 	private Set<String> synonym = new HashSet<String>(); // nickname, aliases, variants.
-	private String suffix; // LLP, LLC, Ltd; Dr.  
+	private String suffix; // LLP, LLC, Ltd; Dr.
 
-	public Name(final String fullName){
+	public Name(final String fullName) {
 		this.fullName = fullName;
 	}
-	
-	public String getName(){
+
+	public String getName() {
 		return fullName;
 	}
 
-	public String getNameTitleCase(){
-	    return StringCaseUtil.toTitleCase(fullName);
+	public String getNameTitleCase() {
+		return StringCaseUtil.toTitleCase(fullName);
 	}
 
 	public Set<String> getSynonyms() {
@@ -32,19 +32,19 @@ public abstract class Name {
 		this.synonym = synonym;
 	}
 
-	public void addSynonym(String synonym){
+	public void addSynonym(String synonym) {
 		this.synonym.add(synonym);
 	}
 
-	public void addSynonym(Collection<String> synonym){
+	public void addSynonym(Collection<String> synonym) {
 		this.synonym.addAll(synonym);
 	}
 
-	public String getSuffix(){
+	public String getSuffix() {
 		return suffix;
 	}
 
-	public void setSuffix(String suffix){
+	public void setSuffix(String suffix) {
 		this.suffix = suffix;
 	}
 

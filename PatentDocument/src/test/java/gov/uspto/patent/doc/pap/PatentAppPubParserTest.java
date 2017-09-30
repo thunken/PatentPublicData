@@ -16,16 +16,18 @@ import gov.uspto.patent.model.Patent;
 
 public class PatentAppPubParserTest {
 
-    @Test
-    public void readSamples() throws PatentReaderException, IOException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
-        PatentAppPubParser pap = new PatentAppPubParser();
-        Path dirPath = Paths.get("resources/samples/pap");
-        Preconditions.checkArgument(dirPath.toFile().isDirectory(), "PAP sample dir does not exist.");
-        for (File file : dirPath.toFile().listFiles()) {
-            Patent patent = pap.parse(file);
-            ValidatePatent.methodsReturnNonNull(patent);
-            //System.out.println(patent.getDocumentId().toText() + " - " + patent.getTitle());
-        }
-    }
+	@Test
+	public void readSamples() throws PatentReaderException, IOException, IllegalAccessException,
+			IllegalArgumentException, InvocationTargetException {
+		PatentAppPubParser pap = new PatentAppPubParser();
+		Path dirPath = Paths.get("resources/samples/pap");
+		Preconditions.checkArgument(dirPath.toFile().isDirectory(), "PAP sample dir does not exist.");
+		for (File file : dirPath.toFile().listFiles()) {
+			Patent patent = pap.parse(file);
+			ValidatePatent.methodsReturnNonNull(patent);
+			// System.out.println(patent.getDocumentId().toText() + " - " +
+			// patent.getTitle());
+		}
+	}
 
 }

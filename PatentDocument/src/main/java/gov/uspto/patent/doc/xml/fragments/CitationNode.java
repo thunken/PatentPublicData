@@ -21,13 +21,19 @@ import gov.uspto.patent.model.classification.PatentClassification;
  * 
  * @author Brian G. Feldman (brian.feldman@uspto.gov)
  *
- *<p>Note 1: Citations are only available to the public in Grants.</p>
- *<p>Note 2: classification-national are sometimes missing from citations when cited by applicant.</p>
+ *         <p>
+ * 		Note 1: Citations are only available to the public in Grants.
+ *         </p>
+ *         <p>
+ * 		Note 2: classification-national are sometimes missing from citations
+ *         when cited by applicant.
+ *         </p>
  *
  */
 public class CitationNode extends DOMFragmentReader<List<Citation>> {
 
-	private static final String FRAGMENT_PATH = "//us-references-cited|//references-cited"; // current us-references-cited. 
+	private static final String FRAGMENT_PATH = "//us-references-cited|//references-cited"; // current
+																							// us-references-cited.
 
 	private Node citationNode;
 
@@ -91,16 +97,12 @@ public class CitationNode extends DOMFragmentReader<List<Citation>> {
 			/*
 			 * Applications appear as US2004123455 CountryDate/Number
 			 *
-			String[] parts = documentId.getId().split("/");
-			String date;
-			if (parts.length == 2){
-				String country = parts[0].substring(0, 2);
-				date = parts[0].substring(1);
-				String id2 = country + parts[1];
-				
-				System.out.println("Application ID: " + documentId + " " + id2);
-			}
-			*/
+			 * String[] parts = documentId.getId().split("/"); String date; if (parts.length
+			 * == 2){ String country = parts[0].substring(0, 2); date =
+			 * parts[0].substring(1); String id2 = country + parts[1];
+			 * 
+			 * System.out.println("Application ID: " + documentId + " " + id2); }
+			 */
 
 			// <category>cited by examiner</category>
 			Node category = patcit.getParent().selectSingleNode("category");
@@ -109,21 +111,21 @@ public class CitationNode extends DOMFragmentReader<List<Citation>> {
 			PatCitation citation = new PatCitation(num, documentId, examinerCited);
 
 			PatentClassification mainClassNational = new ClassificationNationalNode(patcit.getParent()).read();
-			if (mainClassNational != null){
-			    citation.setClassification(mainClassNational);
+			if (mainClassNational != null) {
+				citation.setClassification(mainClassNational);
 			}
 
-	        PatentClassification mainClassCpc = new ClassificationCpcNode(patcit.getParent()).read();
-	        if (mainClassCpc != null){
-	            citation.setClassification(mainClassCpc);
-	        }
-	        
-            PatentClassification mainClassIpc = new ClassificationIPCNode(patcit.getParent()).read();
-            if (mainClassCpc != null){
-                citation.setClassification(mainClassIpc);
-            }
-	        
-	        patCitations.add(citation);
+			PatentClassification mainClassCpc = new ClassificationCpcNode(patcit.getParent()).read();
+			if (mainClassCpc != null) {
+				citation.setClassification(mainClassCpc);
+			}
+
+			PatentClassification mainClassIpc = new ClassificationIPCNode(patcit.getParent()).read();
+			if (mainClassCpc != null) {
+				citation.setClassification(mainClassIpc);
+			}
+
+			patCitations.add(citation);
 		}
 
 		return patCitations;

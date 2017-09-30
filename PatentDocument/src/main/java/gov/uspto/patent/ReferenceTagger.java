@@ -27,12 +27,13 @@ public class ReferenceTagger {
 			claimStb.append("<a class=\"claim\" idref=\"CLM-").append(Strings.padStart(clmMatcher.group(2), 4, '0'));
 
 			if (" or ".equals(clmMatcher.group(3))) {
-				// claim 1 or 2  BECOMES  CLM-1 or CLM-2 
+				// claim 1 or 2 BECOMES CLM-1 or CLM-2
 				claimStb.append("\">").append("claim ").append(clmMatcher.group(2)).append("</a>");
-				claimStb.append(clmMatcher.group(3)).append("<a class=\"claim\" idref=\"CLM-").append(Strings.padStart(clmMatcher.group(4), 4, '0'));
+				claimStb.append(clmMatcher.group(3)).append("<a class=\"claim\" idref=\"CLM-")
+						.append(Strings.padStart(clmMatcher.group(4), 4, '0'));
 				claimStb.append("\">").append("claim ").append(clmMatcher.group(4)).append("</a>");
 			} else if (clmMatcher.group(3) != null) {
-				// claim 1 to 2  OR  claim 1 - 2  BECOMES  CLM-1 - CLM-2 
+				// claim 1 to 2 OR claim 1 - 2 BECOMES CLM-1 - CLM-2
 				claimStb.append(" - ").append("CLM-").append(Strings.padStart(clmMatcher.group(4), 4, '0'));
 				claimStb.append("\">").append(fullMatch).append("</a>");
 			} else {
@@ -55,12 +56,13 @@ public class ReferenceTagger {
 			figStb.append("<a class=\"figref\" idref=\"FIG-").append(figMatcher.group(2));
 
 			if (" and ".equals(figMatcher.group(3))) {
-				// FIGS. 1 and 2  BECOMES  FIG-1 and FIG-2 
+				// FIGS. 1 and 2 BECOMES FIG-1 and FIG-2
 				figStb.append("\">").append("FIG-").append(figMatcher.group(2)).append("</a>");
-				figStb.append(figMatcher.group(3)).append("<a class=\"figref\" idref=\"FIG-").append(figMatcher.group(4));
+				figStb.append(figMatcher.group(3)).append("<a class=\"figref\" idref=\"FIG-")
+						.append(figMatcher.group(4));
 				figStb.append("\">").append("FIG-").append(figMatcher.group(4)).append("</a>");
 			} else if (figMatcher.group(3) != null) {
-				// FIGS. 1 to 2  OR  FIGS. 1 - 2  BECOMES  FIG-1 - FIG-2 
+				// FIGS. 1 to 2 OR FIGS. 1 - 2 BECOMES FIG-1 - FIG-2
 				figStb.append(" - ").append("FIG-").append(figMatcher.group(4));
 				figStb.append("\">").append(fullMatch).append("</a>");
 			} else {
@@ -78,15 +80,15 @@ public class ReferenceTagger {
 	/**
 	 * Generate Claim ID from Text
 	 * 
-	 * claim 1  ==>  CLM-0001
+	 * claim 1 ==> CLM-0001
 	 * 
 	 * @param text
 	 * @return
 	 */
-	public static String createClaimId(final String text){
+	public static String createClaimId(final String text) {
 		Matcher clmMatcher = CLAIM_REF.matcher(text);
 		StringBuilder stb = new StringBuilder();
-		if (clmMatcher.matches()){
+		if (clmMatcher.matches()) {
 			stb.append("CLM-");
 			stb.append(Strings.padStart(clmMatcher.group(2), 4, '0'));
 		}
@@ -96,24 +98,24 @@ public class ReferenceTagger {
 	/**
 	 * Generate Fig ID from Text
 	 * 
-	 * Fig. 1  ==>  FIG-1
+	 * Fig. 1 ==> FIG-1
 	 * 
 	 * @param text
 	 * @return
 	 */
-	public static String createFigId(final String text){
+	public static String createFigId(final String text) {
 		Matcher figMatcher = PATENT_FIG.matcher(text);
 		StringBuilder stb = new StringBuilder();
-		if (figMatcher.matches()){
+		if (figMatcher.matches()) {
 			stb.append("FIG-");
 			stb.append(figMatcher.group(2));
-			if (figMatcher.group(3) != null){
+			if (figMatcher.group(3) != null) {
 				stb.append(",").append("FIG-").append(figMatcher.group(4));
 			}
 		}
 		return stb.toString();
 	}
-	
+
 	/**
 	 * Transform Patent Figure and Patent Claims and their accompanied number to
 	 * simply "Patent-Claim" or "Patent-Figure"

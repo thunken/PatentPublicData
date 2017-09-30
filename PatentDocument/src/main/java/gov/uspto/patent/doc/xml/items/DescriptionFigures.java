@@ -22,10 +22,10 @@ public class DescriptionFigures extends ItemReader<List<Figure>> {
 	public List<Figure> read() {
 		List<Figure> figures = new ArrayList<Figure>();
 		List<Node> childNodes = DescriptionNode.getSectionNodes(itemNode, "brief-description-of-drawings");
-		for(Node childN: childNodes){
-			if ("description-of-drawings".equals(childN.getName())){
+		for (Node childN : childNodes) {
+			if ("description-of-drawings".equals(childN.getName())) {
 				List<Node> figNodes = childN.selectNodes("p[figref]");
-				for (Node pWithFigN: figNodes){
+				for (Node pWithFigN : figNodes) {
 					String id = pWithFigN.selectSingleNode("figref").getText();
 					String text = pWithFigN.getText().trim();
 					Figure fig = new Figure(text, id);

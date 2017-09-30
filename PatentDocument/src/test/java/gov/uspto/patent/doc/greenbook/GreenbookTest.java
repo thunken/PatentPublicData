@@ -16,16 +16,18 @@ import gov.uspto.patent.model.Patent;
 
 public class GreenbookTest {
 
-    @Test
-    public void readSamples() throws PatentReaderException, IOException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
-        Greenbook greenbook = new Greenbook();
-        Path dirPath = Paths.get("resources/samples/greenbook");
-        Preconditions.checkArgument(dirPath.toFile().isDirectory(), "greenbook sample dir does not exist.");
-        for (File file : dirPath.toFile().listFiles()) {
-            Patent patent = greenbook.parse(file);
-            ValidatePatent.methodsReturnNonNull(patent);
-            //System.out.println(patent.getDescription().getSimpleHtml());
-            //System.out.println(patent.getDocumentId().toText() + " - " + patent.getTitle());
-        }
-    }
+	@Test
+	public void readSamples() throws PatentReaderException, IOException, IllegalAccessException,
+			IllegalArgumentException, InvocationTargetException {
+		Greenbook greenbook = new Greenbook();
+		Path dirPath = Paths.get("resources/samples/greenbook");
+		Preconditions.checkArgument(dirPath.toFile().isDirectory(), "greenbook sample dir does not exist.");
+		for (File file : dirPath.toFile().listFiles()) {
+			Patent patent = greenbook.parse(file);
+			ValidatePatent.methodsReturnNonNull(patent);
+			// System.out.println(patent.getDescription().getSimpleHtml());
+			// System.out.println(patent.getDocumentId().toText() + " - " +
+			// patent.getTitle());
+		}
+	}
 }

@@ -61,9 +61,8 @@ public class FormattedText implements TextProcessor {
 	public String getSimpleHtml(String rawText) {
 
 		/*
-		 * Change xml processing instruction "in-line-formulae" to normal xml
-		 * node, as it was in the Patent PAP format; also making it searchable
-		 * within jsoup.
+		 * Change xml processing instruction "in-line-formulae" to normal xml node, as
+		 * it was in the Patent PAP format; also making it searchable within jsoup.
 		 */
 		rawText = rawText.replaceAll("<\\?in-line-formulae description=\"In-line Formulae\" end=\"lead\"\\?>",
 				"<in-line-formula>");
@@ -71,7 +70,8 @@ public class FormattedText implements TextProcessor {
 				"</in-line-formula>");
 
 		Document document = Jsoup.parse("<body>" + rawText + "</body>", "", Parser.xmlParser());
-		document.outputSettings().prettyPrint(false).syntax(Syntax.xml).charset(StandardCharsets.UTF_8).escapeMode(EscapeMode.xhtml);
+		document.outputSettings().prettyPrint(false).syntax(Syntax.xml).charset(StandardCharsets.UTF_8)
+				.escapeMode(EscapeMode.xhtml);
 
 		document.select("bold").tagName("b");
 
@@ -154,31 +154,31 @@ public class FormattedText implements TextProcessor {
 			element.addClass("crossref");
 		}
 
-        /*
-         * Escape MathML math elements, to maintain all xml elements after
-         * sending through Cleaner.
-         */
-        boolean mathFound = false;
-        Elements mathEls = document.select("math");
-        for (int i = 1; i <= mathEls.size(); i++) {
-            Element element = mathEls.get(i - 1);
-            mathFound = true;
+		/*
+		 * Escape MathML math elements, to maintain all xml elements after sending
+		 * through Cleaner.
+		 */
+		boolean mathFound = false;
+		Elements mathEls = document.select("math");
+		for (int i = 1; i <= mathEls.size(); i++) {
+			Element element = mathEls.get(i - 1);
+			mathFound = true;
 
-            //String mathml = MathmlEscaper.escape(element.outerHtml());
-            String mathml = "";
-            try {
-                mathml = Base64.getEncoder().encodeToString(element.outerHtml().getBytes("utf-8"));
-            } catch (UnsupportedEncodingException e) {
-                e.printStackTrace();
-            }
+			// String mathml = MathmlEscaper.escape(element.outerHtml());
+			String mathml = "";
+			try {
+				mathml = Base64.getEncoder().encodeToString(element.outerHtml().getBytes("utf-8"));
+			} catch (UnsupportedEncodingException e) {
+				e.printStackTrace();
+			}
 
-            Element newEl = new Element(Tag.valueOf("span"), "");
-            newEl.attr("id", "MTH-" + Strings.padStart(String.valueOf(i), 4, '0'));
-            newEl.addClass("math");
-            newEl.attr("format", "mathml");
-            newEl.appendChild(new TextNode(mathml, null));
-            element.replaceWith(newEl);         
-        }
+			Element newEl = new Element(Tag.valueOf("span"), "");
+			newEl.attr("id", "MTH-" + Strings.padStart(String.valueOf(i), 4, '0'));
+			newEl.addClass("math");
+			newEl.attr("format", "mathml");
+			newEl.appendChild(new TextNode(mathml, null));
+			element.replaceWith(newEl);
+		}
 
 		/*
 		 * Subscript use unicode if able to convert
@@ -261,25 +261,26 @@ public class FormattedText implements TextProcessor {
 		outSettings.outline(true);
 		outSettings.prettyPrint(false);
 		outSettings.escapeMode(EscapeMode.xhtml);
-		//outSettings.escapeMode(EscapeMode.extended);
+		// outSettings.escapeMode(EscapeMode.extended);
 
 		docStr = Jsoup.clean(docStr, "", whitelist, outSettings);
 
 		if (mathFound) {
-		    // Reload document and un-base64 the mathml sections.
-		    document = Jsoup.parse("<body>" + docStr + "</body>", "", Parser.xmlParser());
-		    document.outputSettings().prettyPrint(false).syntax(OutputSettings.Syntax.xml).charset(StandardCharsets.UTF_8);
+			// Reload document and un-base64 the mathml sections.
+			document = Jsoup.parse("<body>" + docStr + "</body>", "", Parser.xmlParser());
+			document.outputSettings().prettyPrint(false).syntax(OutputSettings.Syntax.xml)
+					.charset(StandardCharsets.UTF_8);
 
-		    for (Element el : document.select("span[class=math]")) {
-                try {
-                    String html = new String(Base64.getDecoder().decode(el.html()), "utf-8");
-                    el.text("");
-                    el.append(html);
-                } catch (UnsupportedEncodingException e) {
-                    e.printStackTrace();
-                }
-		    }
-		    docStr = document.select("body").html();
+			for (Element el : document.select("span[class=math]")) {
+				try {
+					String html = new String(Base64.getDecoder().decode(el.html()), "utf-8");
+					el.text("");
+					el.append(html);
+				} catch (UnsupportedEncodingException e) {
+					e.printStackTrace();
+				}
+			}
+			docStr = document.select("body").html();
 		}
 
 		return docStr;

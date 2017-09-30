@@ -5,36 +5,29 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * Derwent "DWPI" Classification, are defined as Derwent Manual Codes, since they are applied manually by analyst.
+ * Derwent "DWPI" Classification, are defined as Derwent Manual Codes, since
+ * they are applied manually by analyst.
  *
- * Patents are classified into three broad technology areas: 
- * 		Chemical
- *		Engineering
- *		Electrical and Electronic Engineering   
+ * Patents are classified into three broad technology areas: Chemical
+ * Engineering Electrical and Electronic Engineering
  *
- * A01-A01A1
- *  -- Section, 1st letter
- *  -- Subsection, two digits
- *  -- Group, one letter
- *  -- subgroup, two numbers
- *  -- division, one letter
- *  -- subdivision, one numbers
- *  -- occasional training letter.
- *  
- *  -- subclass / "Fragmentation Code", series of alphnumerics.
- *  
- * Codes are applied to the inventive/significant features of the invention using the Documentation Abstract.
- * Codes are assigned by teams of Thomson Reuters DWPI analysts.
+ * A01-A01A1 -- Section, 1st letter -- Subsection, two digits -- Group, one
+ * letter -- subgroup, two numbers -- division, one letter -- subdivision, one
+ * numbers -- occasional training letter.
  * 
- * Can be followed by IPC code as follows:
- * 		A47, F23-5
- *		( DWPI code, IPC code)
+ * -- subclass / "Fragmentation Code", series of alphnumerics.
+ * 
+ * Codes are applied to the inventive/significant features of the invention
+ * using the Documentation Abstract. Codes are assigned by teams of Thomson
+ * Reuters DWPI analysts.
+ * 
+ * Can be followed by IPC code as follows: A47, F23-5 ( DWPI code, IPC code)
  *
  *
- *  @author Brian G. Feldman (brian.feldman@uspto.gov)
- *  
- *  http://ip-science.thomsonreuters.com/support/patents/dwpiref/reftools/classification/
- *	http://ip-science.thomsonreuters.com/m/pdfs/DWPI_Class_Manual_2015.pdf
+ * @author Brian G. Feldman (brian.feldman@uspto.gov)
+ * 
+ *         http://ip-science.thomsonreuters.com/support/patents/dwpiref/reftools/classification/
+ *         http://ip-science.thomsonreuters.com/m/pdfs/DWPI_Class_Manual_2015.pdf
  * 
  */
 public class DwpiClassification extends PatentClassification {
@@ -49,11 +42,28 @@ public class DwpiClassification extends PatentClassification {
 
 	// Regex with their lengths, note length includes the dash.
 	private final static Pattern REGEX_LEN_3 = Pattern.compile("^([A-HJ-NPQS-X])(\\d{2})$"); // Section and Subsection.
-	private final static Pattern REGEX_LEN_5 = Pattern.compile("^([A-HJ-NPQS-X])(\\d{2})-([A-Z])$"); // Section, Subsection, Group.
-	private final static Pattern REGEX_LEN_7 = Pattern.compile("^([A-HJ-NPQS-X])(\\d{2})-([A-Z])(\\d{2})$"); // Section, Subsection, Group, Subgroup.
-	private final static Pattern REGEX_LEN_8 = Pattern.compile("^([A-HJ-NPQS-X])(\\d{2})-([A-Z])(\\d{2})([A-Z])$"); // Section, Subsection, Group, Subgroup, division.
-	private final static Pattern REGEX_LEN_9 = Pattern.compile("^([A-HJ-NPQS-X])(\\d{2})-([A-Z])(\\d{2})([A-Z])(\\d)$"); // Section, Subsection, Group, Subgroup, division, subdivision.
-	private final static Pattern REGEX_LEN_10 = Pattern.compile("^([A-HJ-NPQS-X])(\\d{2})-([A-Z])(\\d{2})([A-Z])(\\d)([A-Z])$"); // Section, Subsection, Group, Subgroup, division, subdivision, extra letter.
+	private final static Pattern REGEX_LEN_5 = Pattern.compile("^([A-HJ-NPQS-X])(\\d{2})-([A-Z])$"); // Section,
+																										// Subsection,
+																										// Group.
+	private final static Pattern REGEX_LEN_7 = Pattern.compile("^([A-HJ-NPQS-X])(\\d{2})-([A-Z])(\\d{2})$"); // Section,
+																												// Subsection,
+																												// Group,
+																												// Subgroup.
+	private final static Pattern REGEX_LEN_8 = Pattern.compile("^([A-HJ-NPQS-X])(\\d{2})-([A-Z])(\\d{2})([A-Z])$"); // Section,
+																													// Subsection,
+																													// Group,
+																													// Subgroup,
+																													// division.
+	private final static Pattern REGEX_LEN_9 = Pattern.compile("^([A-HJ-NPQS-X])(\\d{2})-([A-Z])(\\d{2})([A-Z])(\\d)$"); // Section,
+																															// Subsection,
+																															// Group,
+																															// Subgroup,
+																															// division,
+																															// subdivision.
+	private final static Pattern REGEX_LEN_10 = Pattern
+			.compile("^([A-HJ-NPQS-X])(\\d{2})-([A-Z])(\\d{2})([A-Z])(\\d)([A-Z])$"); // Section, Subsection, Group,
+																						// Subgroup, division,
+																						// subdivision, extra letter.
 
 	@Override
 	public ClassificationType getType() {
@@ -122,69 +132,62 @@ public class DwpiClassification extends PatentClassification {
 
 	@Override
 	public String[] getParts() {
-		return new String[]{section.toString(), subsection, group, subgroup, division, subdivision, extra};
+		return new String[] { section.toString(), subsection, group, subgroup, division, subdivision, extra };
 	}
 
 	@Override
 	public String getTextNormalized() {
-		StringBuilder sb = new StringBuilder()
-				.append(section)
-				.append(subsection);
-		
-			if (group != null){
-				sb.append("-").append(group);
-				
-				if (subgroup != null){
-					sb.append(subgroup);
-					
-					if (division != null){
-						sb.append(division);
-						
-						if (subdivision != null){
-							sb.append(subdivision);
-							
-							if (extra != null){
-								sb.append(extra);
-							}	
+		StringBuilder sb = new StringBuilder().append(section).append(subsection);
+
+		if (group != null) {
+			sb.append("-").append(group);
+
+			if (subgroup != null) {
+				sb.append(subgroup);
+
+				if (division != null) {
+					sb.append(division);
+
+					if (subdivision != null) {
+						sb.append(subdivision);
+
+						if (extra != null) {
+							sb.append(extra);
 						}
-						
-					}	
-					
+					}
+
 				}
-				
+
 			}
-			
-			return sb.toString();
+
+		}
+
+		return sb.toString();
 	}
-	
+
 	/**
-	 * Classification depth 
+	 * Classification depth
 	 * 
-	 * ( 1=section, 2=subsection, 3=group, 4=subGroup, 5=division, 6=subdivision, 7=extra)
+	 * ( 1=section, 2=subsection, 3=group, 4=subGroup, 5=division, 6=subdivision,
+	 * 7=extra)
 	 * 
 	 */
-	public int getDepth(){
+	public int getDepth() {
 		int classDepth = 0;
 
-		if (extra != null && extra.isEmpty()){
+		if (extra != null && extra.isEmpty()) {
 			classDepth = 7;
-		}
-		else if (subdivision != null && subdivision.isEmpty()){
+		} else if (subdivision != null && subdivision.isEmpty()) {
 			classDepth = 6;
-		}
-		else if (division != null && !division.isEmpty()){
+		} else if (division != null && !division.isEmpty()) {
 			classDepth = 5;
-		}
-		else if (subgroup != null && !subgroup.isEmpty()){
+		} else if (subgroup != null && !subgroup.isEmpty()) {
 			classDepth = 4;
-		}
-		else if (group != null && !group.isEmpty()){
+		} else if (group != null && !group.isEmpty()) {
 			classDepth = 3;
-		}
-		else if (subsection != null && !subsection.isEmpty()){
+		} else if (subsection != null && !subsection.isEmpty()) {
 			classDepth = 2;
-		}
-		else if (section != null){
+		} else if (section != null) {
 			classDepth = 1;
 		}
 
@@ -192,67 +195,49 @@ public class DwpiClassification extends PatentClassification {
 	}
 
 	@Override
-	public boolean isContained(PatentClassification check){
+	public boolean isContained(PatentClassification check) {
 		if (check == null || !(check instanceof DwpiClassification)) {
 			return false;
 		}
 		DwpiClassification dwpi = (DwpiClassification) check;
-		
+
 		int depth = getDepth();
-		if (depth == 7){
-			if (section.equals(dwpi.getSection()) 
-					&& subsection.equals(dwpi.getSubsection()) 
-					&& group.equals(dwpi.getGroup())
-					&& subgroup.equals(dwpi.getSubgroup())
-					&& division.equals(dwpi.getDivision())
-					&& subdivision.equals(dwpi.getSubdivision()) 
-					&& extra.equals(dwpi.getExtra())){
+		if (depth == 7) {
+			if (section.equals(dwpi.getSection()) && subsection.equals(dwpi.getSubsection())
+					&& group.equals(dwpi.getGroup()) && subgroup.equals(dwpi.getSubgroup())
+					&& division.equals(dwpi.getDivision()) && subdivision.equals(dwpi.getSubdivision())
+					&& extra.equals(dwpi.getExtra())) {
 				return true;
 			}
-		}
-		else if (depth == 6){
-			if (section.equals(dwpi.getSection()) 
-					&& subsection.equals(dwpi.getSubsection()) 
-					&& group.equals(dwpi.getGroup())
-					&& subgroup.equals(dwpi.getSubgroup())
-					&& division.equals(dwpi.getDivision())
-					&& subdivision.equals(dwpi.getSubgroup())){
-					return true;
+		} else if (depth == 6) {
+			if (section.equals(dwpi.getSection()) && subsection.equals(dwpi.getSubsection())
+					&& group.equals(dwpi.getGroup()) && subgroup.equals(dwpi.getSubgroup())
+					&& division.equals(dwpi.getDivision()) && subdivision.equals(dwpi.getSubgroup())) {
+				return true;
 			}
-		}
-		else if (depth == 5){
-			if (section.equals(dwpi.getSection()) 
-					&& subsection.equals(dwpi.getSubsection()) 
-					&& group.equals(dwpi.getGroup())
-					&& subgroup.equals(dwpi.getSubgroup())
-					&& division.equals(dwpi.getDivision())){
-					return true;
+		} else if (depth == 5) {
+			if (section.equals(dwpi.getSection()) && subsection.equals(dwpi.getSubsection())
+					&& group.equals(dwpi.getGroup()) && subgroup.equals(dwpi.getSubgroup())
+					&& division.equals(dwpi.getDivision())) {
+				return true;
 			}
-		}
-		else if (depth == 4){
-			if (section.equals(dwpi.getSection()) 
-					&& subsection.equals(dwpi.getSubsection()) 
-					&& group.equals(dwpi.getGroup())
-					&& subgroup.equals(dwpi.getSubgroup())){
-					return true;
+		} else if (depth == 4) {
+			if (section.equals(dwpi.getSection()) && subsection.equals(dwpi.getSubsection())
+					&& group.equals(dwpi.getGroup()) && subgroup.equals(dwpi.getSubgroup())) {
+				return true;
 			}
-		}
-		else if (depth == 3){
-			if (section.equals(dwpi.getSection()) 
-					&& subsection.equals(dwpi.getSubsection()) 
-					&& group.equals(dwpi.getGroup())){
-					return true;
+		} else if (depth == 3) {
+			if (section.equals(dwpi.getSection()) && subsection.equals(dwpi.getSubsection())
+					&& group.equals(dwpi.getGroup())) {
+				return true;
 			}
-		}
-		else if (depth == 2){
-			if (section.equals(dwpi.getSection()) 
-					&& subsection.equals(dwpi.getSubsection())){
-					return true;
+		} else if (depth == 2) {
+			if (section.equals(dwpi.getSection()) && subsection.equals(dwpi.getSubsection())) {
+				return true;
 			}
-		}
-		else if (depth == 1){
-			if (section.equals(dwpi.getSection())){
-					return true;
+		} else if (depth == 1) {
+			if (section.equals(dwpi.getSection())) {
+				return true;
 			}
 		}
 		return false;
@@ -267,15 +252,14 @@ public class DwpiClassification extends PatentClassification {
 			return false;
 		}
 		final DwpiClassification other = (DwpiClassification) obj;
-		
-		if (other.getDepth() == getDepth() && isContained(other)){
+
+		if (other.getDepth() == getDepth() && isContained(other)) {
 			return true;
 		}
 
 		return false;
 	}
-	
-	
+
 	@Override
 	public String toString() {
 		return "DwpiClassification [section=" + section + ", subsection=" + subsection + ", group=" + group
@@ -285,7 +269,7 @@ public class DwpiClassification extends PatentClassification {
 
 	@Override
 	public void parseText(String classificationStr) throws ParseException {
-		
+
 		String section = null;
 		String subsection = null;
 		String group = null;
@@ -293,42 +277,38 @@ public class DwpiClassification extends PatentClassification {
 		String division = null;
 		String subdivision = null;
 		String extra = null;
-		
-		if (classificationStr.length() == 3){
+
+		if (classificationStr.length() == 3) {
 			Matcher matcher = REGEX_LEN_3.matcher(classificationStr);
 			section = matcher.group(1);
 			subsection = matcher.group(2);
-		}
-		else if (classificationStr.length() == 5){
+		} else if (classificationStr.length() == 5) {
 			Matcher matcher = REGEX_LEN_5.matcher(classificationStr);
-			if(matcher.matches()){
+			if (matcher.matches()) {
 				section = matcher.group(1);
 				subsection = matcher.group(2);
 				group = matcher.group(3);
 			}
-		}
-		else if (classificationStr.length() == 7){
+		} else if (classificationStr.length() == 7) {
 			Matcher matcher = REGEX_LEN_7.matcher(classificationStr);
-			if(matcher.matches()){
+			if (matcher.matches()) {
 				section = matcher.group(1);
 				subsection = matcher.group(2);
 				group = matcher.group(3);
 				subgroup = matcher.group(4);
 			}
-		}
-		else if (classificationStr.length() == 8){
+		} else if (classificationStr.length() == 8) {
 			Matcher matcher = REGEX_LEN_8.matcher(classificationStr);
-			if(matcher.matches()){
+			if (matcher.matches()) {
 				section = matcher.group(1);
 				subsection = matcher.group(2);
 				group = matcher.group(3);
 				subgroup = matcher.group(4);
 				division = matcher.group(5);
 			}
-		}
-		else if (classificationStr.length() == 9){
+		} else if (classificationStr.length() == 9) {
 			Matcher matcher = REGEX_LEN_9.matcher(classificationStr);
-			if(matcher.matches()){
+			if (matcher.matches()) {
 				section = matcher.group(1);
 				subsection = matcher.group(2);
 				group = matcher.group(3);
@@ -336,10 +316,9 @@ public class DwpiClassification extends PatentClassification {
 				division = matcher.group(5);
 				subdivision = matcher.group(6);
 			}
-		}
-		else if (classificationStr.length() == 10){
+		} else if (classificationStr.length() == 10) {
 			Matcher matcher = REGEX_LEN_10.matcher(classificationStr);
-			if(matcher.matches()){
+			if (matcher.matches()) {
 				section = matcher.group(1);
 				subsection = matcher.group(2);
 				group = matcher.group(3);
@@ -350,15 +329,15 @@ public class DwpiClassification extends PatentClassification {
 			}
 		}
 
-		if (classificationStr.length() >= 1){
+		if (classificationStr.length() >= 1) {
 			super.setTextOriginal(classificationStr);
 			setSection(section);
-		    setSubsection(subsection);
-		    setGroup(group);
-		    setSubgroup(subgroup);
-		    setDivision(division);
-		    setSubdivision(subdivision);
-		    setExtra(extra);
+			setSubsection(subsection);
+			setGroup(group);
+			setSubgroup(subgroup);
+			setDivision(division);
+			setSubdivision(subdivision);
+			setExtra(extra);
 		} else {
 			throw new ParseException("Failed to regex parse DWPI Classification: " + classificationStr, 0);
 		}

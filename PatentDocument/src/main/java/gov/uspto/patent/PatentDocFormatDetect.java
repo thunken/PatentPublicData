@@ -20,11 +20,11 @@ public class PatentDocFormatDetect {
 	 * @return
 	 */
 	public PatentDocFormat fromFileName(File file) {
-	    PatentDocFormat format = PatentDocFormat.findMimeType(file.getName());
+		PatentDocFormat format = PatentDocFormat.findMimeType(file.getName());
 		if (format == PatentDocFormat.Unknown) {
 
 			if (file.getName().endsWith(".greenbook") || file.getName().endsWith(".gbk")) {
-			    format = PatentDocFormat.Greenbook;
+				format = PatentDocFormat.Greenbook;
 			}
 		}
 
@@ -40,7 +40,7 @@ public class PatentDocFormatDetect {
 	}
 
 	public PatentDocFormat fromContent(BufferedReader br) throws IOException {
-	    PatentDocFormat foundMimeType = PatentDocFormat.Unknown;
+		PatentDocFormat foundMimeType = PatentDocFormat.Unknown;
 		br.mark(1000);
 		LINES: for (int i = 0; br.ready() && i < 150; i++) {
 			String line = br.readLine();
@@ -59,7 +59,7 @@ public class PatentDocFormatDetect {
 	}
 
 	public PatentDocFormat fromContent(Reader reader) throws IOException {
-	    PatentDocFormat foundMimeType = PatentDocFormat.Unknown;
+		PatentDocFormat foundMimeType = PatentDocFormat.Unknown;
 		try (BufferedReader br = new BufferedReader(reader)) {
 			// PAP-XML contains list of entities for each image embodiment first
 			// number of lines (seen 38+ lines in header).

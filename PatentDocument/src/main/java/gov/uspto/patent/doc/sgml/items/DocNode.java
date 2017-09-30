@@ -11,17 +11,18 @@ import gov.uspto.patent.model.DocumentDate;
 import gov.uspto.patent.model.DocumentId;
 
 /**
- *<h3>Patent Document Identification</h3>
- *<p> 
- *<li>DNUM PDAT Document number
- *<li>DATE PDAT Document date
- *<li>CTRY PDAT Publishing country or organization (ST.3)
- *<li>KIND PDAT Document kind (ST.16)
- *<li>BNUM PDAT Bulletin number
- *<li>DTXT STEXT Descriptive text
- *</p>
- *<p>
- *<pre>
+ * <h3>Patent Document Identification</h3>
+ * <p>
+ * <li>DNUM PDAT Document number
+ * <li>DATE PDAT Document date
+ * <li>CTRY PDAT Publishing country or organization (ST.3)
+ * <li>KIND PDAT Document kind (ST.16)
+ * <li>BNUM PDAT Bulletin number
+ * <li>DTXT STEXT Descriptive text
+ * </p>
+ * <p>
+ * 
+ * <pre>
  *{@code
  *<DOC>
  *	<DNUM><PDAT>12345678</PDAT></DNUM>
@@ -30,74 +31,75 @@ import gov.uspto.patent.model.DocumentId;
  *	<KIND><PDAT>A1</PDAT></KIND>
  *</DOC>
  *}
- *</pre>
- *</p>
+ * </pre>
+ * </p>
  *
  * @author Brian G. Feldman (brian.feldman@uspto.gov)
  *
  */
 public class DocNode extends ItemReader<DocumentId> {
-    private static final Logger LOGGER = LoggerFactory.getLogger(DocNode.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(DocNode.class);
 
-    private static final CountryCode DEFAULT_COUNTRYCODE = CountryCode.US;
+	private static final CountryCode DEFAULT_COUNTRYCODE = CountryCode.US;
 
-    private CountryCode fallbackCountryCode;
+	private CountryCode fallbackCountryCode;
 
-    public DocNode(Node itemNode) {
-        this(itemNode, DEFAULT_COUNTRYCODE);
-    }
+	public DocNode(Node itemNode) {
+		this(itemNode, DEFAULT_COUNTRYCODE);
+	}
 
-    /**
-     * Constuctor
-     * 
-     * @param itemNode
-     * @param fallbackCountryCode - CountryCode to use when country is Null or Invalid.
-     */
-    public DocNode(Node itemNode, CountryCode fallbackCountryCode) {
-        super(itemNode);
-        this.fallbackCountryCode = fallbackCountryCode != null ? fallbackCountryCode : DEFAULT_COUNTRYCODE;
-    }
+	/**
+	 * Constuctor
+	 * 
+	 * @param itemNode
+	 * @param fallbackCountryCode
+	 *            - CountryCode to use when country is Null or Invalid.
+	 */
+	public DocNode(Node itemNode, CountryCode fallbackCountryCode) {
+		super(itemNode);
+		this.fallbackCountryCode = fallbackCountryCode != null ? fallbackCountryCode : DEFAULT_COUNTRYCODE;
+	}
 
-    @Override
-    public DocumentId read() {
-        return readDocId(itemNode);
-    }
+	@Override
+	public DocumentId read() {
+		return readDocId(itemNode);
+	}
 
-    public DocumentId readDocId(Node docIdNode) {
-        Node docNumN = docIdNode.selectSingleNode("DNUM/PDAT");
-        if (docNumN == null) {
-            LOGGER.warn("Invalid document id can not be Null, from: {}", docIdNode.asXML());
-            return null;
-        }
+	public DocumentId readDocId(Node docIdNode) {
+		Node docNumN = docIdNode.selectSingleNode("DNUM/PDAT");
+		if (docNumN == null) {
+			LOGGER.warn("Invalid document id can not be Null, from: {}", docIdNode.asXML());
+			return null;
+		}
 
-        CountryCode countryCode = fallbackCountryCode;
-        Node countryCodeN = docIdNode.selectSingleNode("CTRY/PDAT");
-        if (countryCodeN != null) {
-            String countryCodeStr = countryCodeN.getText();
+		CountryCode countryCode = fallbackCountryCode;
+		Node countryCodeN = docIdNode.selectSingleNode("CTRY/PDAT");
+		if (countryCodeN != null) {
+			String countryCodeStr = countryCodeN.getText();
 
-            try {
-                countryCode = CountryCode.fromString(countryCodeStr);
-            } catch (InvalidDataException e1) {
-                LOGGER.warn("Invalid Country Code: {} from: {}", countryCodeStr, docIdNode.asXML(), e1);
-            }
-        }
+			try {
+				countryCode = CountryCode.fromString(countryCodeStr);
+			} catch (InvalidDataException e1) {
+				LOGGER.warn("Invalid Country Code: {} from: {}", countryCodeStr, docIdNode.asXML(), e1);
+			}
+		}
 
-        Node kindCodeN = docIdNode.selectSingleNode("KIND/PDAT");
-        String kindCode = kindCodeN != null ? kindCodeN.getText() : null;
+		Node kindCodeN = docIdNode.selectSingleNode("KIND/PDAT");
+		String kindCode = kindCodeN != null ? kindCodeN.getText() : null;
 
-        DocumentId docId = new DocumentId(countryCode, docNumN.getText().replaceAll("/", ""), kindCode);
+		DocumentId docId = new DocumentId(countryCode, docNumN.getText().replaceAll("/", ""), kindCode);
 
-        Node dateN = docIdNode.selectSingleNode("DATE/PDAT");
+		Node dateN = docIdNode.selectSingleNode("DATE/PDAT");
 
-        if (dateN != null) {
-            try {
-                DocumentDate docDate = new DocumentDate(dateN.getText());
-                docId.setDate(docDate);
-            } catch (InvalidDataException e) {
-                LOGGER.warn("Unable to parse date: {} from: {}", dateN.getText(), docIdNode.asXML(), e);
-            }
-        }
+		if (dateN != null) {
+			try {
+				DocumentDate docDate = new DocumentDate(dateN.getText());
+				docId.setDate(docDate);
+			} catch (InvalidDataException e) {
+				LOGGER.warn("Unable to parse date: {} from: {}", dateN.getText(), docIdNode.asXML(), e);
+			}
+		}
 
-        return docId;
-    }
+		return docId;
+	}
 }

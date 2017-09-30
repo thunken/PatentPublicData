@@ -45,7 +45,7 @@ public class PatentReader implements PatentDocReader<Patent> {
 		this.patentDocFormat = patentDocFormat;
 	}
 
-	public void setMaxByteSize(long maxByteSize){
+	public void setMaxByteSize(long maxByteSize) {
 		this.maxByteSize = maxByteSize;
 	}
 
@@ -71,7 +71,7 @@ public class PatentReader implements PatentDocReader<Patent> {
 	public Patent read(Reader reader) throws PatentReaderException, IOException {
 		Preconditions.checkNotNull(reader, "reader can not be Null");
 
-		if (!checkSize(reader)){
+		if (!checkSize(reader)) {
 			throw new PatentReaderException("Patent too Large");
 		}
 
@@ -113,10 +113,10 @@ public class PatentReader implements PatentDocReader<Patent> {
 		}
 	}
 
-	public boolean checkSize(Reader reader) throws IOException{
+	public boolean checkSize(Reader reader) throws IOException {
 		int c;
 		long charCount = 0;
-		while ( -1 != (c = reader.read()) ){ 
+		while (-1 != (c = reader.read())) {
 			charCount++;
 		}
 		reader.reset();
@@ -138,7 +138,8 @@ public class PatentReader implements PatentDocReader<Patent> {
 		jsoupDoc.outputSettings().prettyPrint(false);
 		String doc = jsoupDoc.select("body").html();
 		// Add HTML DTD to ensure HTML entities do not cause any problems.
-        doc = "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD XHTML 1.0 Strict//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd\">\n" + doc; 
+		doc = "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD XHTML 1.0 Strict//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd\">\n"
+				+ doc;
 		try {
 			SAXReader sax = new SAXReader(false);
 			sax.setFeature("http://apache.org/xml/features/nonvalidating/load-external-dtd", false);

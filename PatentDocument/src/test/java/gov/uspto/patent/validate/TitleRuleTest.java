@@ -32,7 +32,7 @@ public class TitleRuleTest {
 		patent.setTitle("Arr");
 		assertFalse(titleRule.test(patent));
 	}
-	
+
 	@Test
 	public void failLongTitle() {
 		PatentApplication patent = new PatentApplication(new DocumentId(CountryCode.US, "99999"), PatentType.UTILITY);

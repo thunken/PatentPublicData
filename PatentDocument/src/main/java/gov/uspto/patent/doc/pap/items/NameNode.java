@@ -13,11 +13,14 @@ import gov.uspto.patent.model.entity.NamePerson;
 /**
  * Parse Name (Inventor)
  *
- *<p><pre>
+ * <p>
+ * 
+ * <pre>
  * {@code
  * <!ELEMENT name  (name-prefix?,given-name?,middle-name?,family-name,name-suffix?) >
  * }
- *</pre></p>
+ * </pre>
+ * </p>
  * 
  * @author Brian G. Feldman (brian.feldman@uspto.gov)
  *

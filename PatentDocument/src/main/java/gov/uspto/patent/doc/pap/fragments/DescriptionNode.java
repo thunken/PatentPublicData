@@ -41,20 +41,23 @@ public class DescriptionNode extends DOMFragmentReader<Description> {
 
 		Node briefSummary = descN.selectSingleNode("summary-of-invention/section");
 		if (briefSummary != null) {
-			desc.addSection(new DescriptionSection(DescSection.BRIEF_SUMMARY, briefSummary.getParent().asXML(), textProcessor));
+			desc.addSection(
+					new DescriptionSection(DescSection.BRIEF_SUMMARY, briefSummary.getParent().asXML(), textProcessor));
 		}
 
 		Node drawingDesc = descN.selectSingleNode("brief-description-of-drawings/section");
 		if (drawingDesc != null) {
-			desc.addSection(new DescriptionSection(DescSection.DRAWING_DESC, drawingDesc.getParent().asXML(), textProcessor));
-			
+			desc.addSection(
+					new DescriptionSection(DescSection.DRAWING_DESC, drawingDesc.getParent().asXML(), textProcessor));
+
 			List<Figure> figures = new DescriptionFigures(drawingDesc).read();
-			desc.addFigures(figures);			
+			desc.addFigures(figures);
 		}
 
 		Node detailedDesc = descN.selectSingleNode("detailed-description/section");
 		if (detailedDesc != null) {
-			desc.addSection(new DescriptionSection(DescSection.DETAILED_DESC, detailedDesc.getParent().asXML(), textProcessor));
+			desc.addSection(
+					new DescriptionSection(DescSection.DETAILED_DESC, detailedDesc.getParent().asXML(), textProcessor));
 		}
 
 		return desc;

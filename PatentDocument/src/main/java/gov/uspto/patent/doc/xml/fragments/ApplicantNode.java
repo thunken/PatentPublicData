@@ -14,8 +14,8 @@ import gov.uspto.patent.model.entity.Name;
 public class ApplicantNode extends DOMFragmentReader<List<Applicant>> {
 
 	/*
-	 * CURRENT: //us-parties/us-applicants/us-applicant
-	 * PRE-2012: //parties/applicants/applicant
+	 * CURRENT: //us-parties/us-applicants/us-applicant PRE-2012:
+	 * //parties/applicants/applicant
 	 */
 	private static final String FRAGMENT_PATH = "//us-parties/us-applicants/us-applicant|//parties/applicants/applicant";
 

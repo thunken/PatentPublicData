@@ -7,13 +7,15 @@ import java.util.List;
 /**
  * Patent Description
  * 
- *<p><ul>
- *There are three to four sections to a Patent Description:
- *<li>Other Patent Relations "RELAPP"
- *<li>Brief Summary "BRFSUM"
- *<li>Brief Description of Drawings "DRWDESC"
- *<li>Detailed Description "DETDESC"
- *</ul></p>
+ * <p>
+ * <ul>
+ * There are three to four sections to a Patent Description:
+ * <li>Other Patent Relations "RELAPP"
+ * <li>Brief Summary "BRFSUM"
+ * <li>Brief Description of Drawings "DRWDESC"
+ * <li>Detailed Description "DETDESC"
+ * </ul>
+ * </p>
  *
  */
 public class Description {
@@ -111,13 +113,12 @@ public class Description {
 		StringBuilder stb = new StringBuilder();
 
 		for (DescriptionSection sec : sections) {
-				stb.append(sec.getSimpleHtml()).append("\n");
+			stb.append(sec.getSimpleHtml()).append("\n");
 		}
 
 		return stb.toString();
 	}
 
-	
 	public String getSimpleHtml(DescSection... descSections) {
 		StringBuilder stb = new StringBuilder();
 

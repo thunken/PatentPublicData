@@ -17,7 +17,7 @@ public class PatentClassificationTest {
 
 		int depth = cpc.getDepth();
 		int expect = 5;
-		
+
 		assertEquals(expect, depth);
 	}
 

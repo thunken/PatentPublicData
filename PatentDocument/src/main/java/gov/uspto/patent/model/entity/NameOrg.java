@@ -17,7 +17,7 @@ public class NameOrg extends Name {
 		String fullName = super.getName();
 
 		if (fullName == null || fullName.length() < 2) {
-	            throw new InvalidDataException("Invalid NameOrg, lastname can not be blank");
+			throw new InvalidDataException("Invalid NameOrg, lastname can not be blank");
 		}
 
 		return true;

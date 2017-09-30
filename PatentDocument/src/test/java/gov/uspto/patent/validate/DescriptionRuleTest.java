@@ -22,12 +22,13 @@ public class DescriptionRuleTest {
 		patent.setDescription(null);
 		assertFalse(descriptionRule.test(patent));
 	}
-	
+
 	@Test
 	public void failTooSmall() {
 		PatentApplication patent = new PatentApplication(new DocumentId(CountryCode.US, "99999"), PatentType.UTILITY);
 		Description desc = new Description();
-		DescriptionSection descSection = new DescriptionSection(DescSection.BRIEF_SUMMARY, "", new DummyFormattedText());
+		DescriptionSection descSection = new DescriptionSection(DescSection.BRIEF_SUMMARY, "",
+				new DummyFormattedText());
 		desc.addSection(descSection);
 		patent.setDescription(desc);
 		assertFalse(descriptionRule.test(patent));

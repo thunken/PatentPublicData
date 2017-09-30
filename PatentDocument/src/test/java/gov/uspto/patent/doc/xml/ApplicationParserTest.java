@@ -16,16 +16,18 @@ import gov.uspto.patent.model.Patent;
 
 public class ApplicationParserTest {
 
-    @Test
-    public void readSamples() throws PatentReaderException, IOException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
-        ApplicationParser xmlApp = new ApplicationParser();
-        Path dirPath = Paths.get("resources/samples/xmlApp2004");
-        Preconditions.checkArgument(dirPath.toFile().isDirectory(), "XML App sample dir does not exist.");
-        for (File file : dirPath.toFile().listFiles()) {
-            Patent patent = xmlApp.parse(file);
-            ValidatePatent.methodsReturnNonNull(patent);
-            //System.out.println(patent.getDocumentId().toText() + " - " + patent.getTitle());
-        }
-    }
+	@Test
+	public void readSamples() throws PatentReaderException, IOException, IllegalAccessException,
+			IllegalArgumentException, InvocationTargetException {
+		ApplicationParser xmlApp = new ApplicationParser();
+		Path dirPath = Paths.get("resources/samples/xmlApp2004");
+		Preconditions.checkArgument(dirPath.toFile().isDirectory(), "XML App sample dir does not exist.");
+		for (File file : dirPath.toFile().listFiles()) {
+			Patent patent = xmlApp.parse(file);
+			ValidatePatent.methodsReturnNonNull(patent);
+			// System.out.println(patent.getDocumentId().toText() + " - " +
+			// patent.getTitle());
+		}
+	}
 
 }

@@ -144,7 +144,7 @@ public class IpcClassification extends PatentClassification {
 	 * 
 	 */
 	@Override
-    public int getDepth() {
+	public int getDepth() {
 		int classDepth = 0;
 		if (subGroup != null && !subGroup.isEmpty()) {
 			classDepth = 5;
@@ -225,7 +225,7 @@ public class IpcClassification extends PatentClassification {
 	 * @throws ParseException
 	 */
 	@Override
-    public void parseText(final String classificationStr) throws ParseException {
+	public void parseText(final String classificationStr) throws ParseException {
 		super.setTextOriginal(classificationStr);
 
 		Matcher matcher = REGEX_OLD.matcher(classificationStr);
@@ -292,10 +292,10 @@ public class IpcClassification extends PatentClassification {
 				+ getDepth() + ", getTextOriginal()=" + super.getTextOriginal() + "]";
 	}
 
-    /**
-     * Parse Facet back into Classifications
-     */
-    public static List<IpcClassification> fromFacets(List<String> facets) {
-        return ClassificationTokenizer.fromFacets(facets, IpcClassification.class);
-    }
+	/**
+	 * Parse Facet back into Classifications
+	 */
+	public static List<IpcClassification> fromFacets(List<String> facets) {
+		return ClassificationTokenizer.fromFacets(facets, IpcClassification.class);
+	}
 }

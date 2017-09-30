@@ -84,7 +84,7 @@ public class CpcMasterReader implements PatentDocReader<MasterClassificationReco
 		Node cpcN = root.selectSingleNode("pat:CPCClassificationBag");
 		List<CpcClassification> cpcClass = readCPC(cpcN);
 
-		if (classPredicate != null && !cpcClass.stream().anyMatch(classPredicate)){
+		if (classPredicate != null && !cpcClass.stream().anyMatch(classPredicate)) {
 			return null;
 		}
 

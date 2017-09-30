@@ -1,5 +1,5 @@
 package gov.uspto.patent;
 
 public enum TextType {
-    RAWTEXT, PLAINTEXT, NORMALIZED
+	RAWTEXT, PLAINTEXT, NORMALIZED
 }

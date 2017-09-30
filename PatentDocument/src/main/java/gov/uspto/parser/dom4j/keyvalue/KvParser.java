@@ -48,20 +48,16 @@ public abstract class KvParser implements Dom4j {
 
 	public Patent parse(Reader reader) throws PatentReaderException {
 		/*
-		try {
-			LOGGER.info("RAW: {}", IOUtils.toString(reader));
-			reader.reset();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		*/
+		 * try { LOGGER.info("RAW: {}", IOUtils.toString(reader)); reader.reset(); }
+		 * catch (IOException e) { e.printStackTrace(); }
+		 */
 
 		List<KeyValue> keyValues = kvReader.parse(reader);
-		//LOGGER.info("KeyValues: {}", keyValues);
-		
+		// LOGGER.info("KeyValues: {}", keyValues);
+
 		Document document = kvReader.genXml(keyValues);
-		//LOGGER.info("XML: {}", document.asXML());
-		
+		// LOGGER.info("XML: {}", document.asXML());
+
 		return parse(document);
 	}
 }

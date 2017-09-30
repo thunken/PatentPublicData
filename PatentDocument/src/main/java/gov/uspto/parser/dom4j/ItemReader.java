@@ -7,7 +7,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * Items are recurring Nodes which can occur in a number of other nodes / fragments. 
+ * Items are recurring Nodes which can occur in a number of other nodes /
+ * fragments.
  * 
  * @author Brian G. Feldman (brian.feldman@uspto.gov)
  *
@@ -22,7 +23,7 @@ public abstract class ItemReader<T> implements Reader<T> {
 		this.itemNode = itemNode;
 	}
 
-	public boolean hasChildren(){
+	public boolean hasChildren() {
 		return ((Element) itemNode).nodeCount() > 0;
 	}
 

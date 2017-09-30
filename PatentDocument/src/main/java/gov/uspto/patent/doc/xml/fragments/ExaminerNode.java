@@ -51,7 +51,7 @@ public class ExaminerNode extends DOMFragmentReader<List<Examiner>> {
 		String department = departmentN != null ? departmentN.getText() : null;
 
 		Name name = new AddressBookNode(primaryN).getPersonName();
-		if (name != null){
+		if (name != null) {
 			return new Examiner(name, department, ExaminerType.PRIMARY);
 		}
 		return null;
@@ -67,7 +67,7 @@ public class ExaminerNode extends DOMFragmentReader<List<Examiner>> {
 		String department = departmentN != null ? departmentN.getText() : null;
 
 		Name name = new AddressBookNode(assistantN).getPersonName();
-		if (name != null){
+		if (name != null) {
 			return new Examiner(name, department, ExaminerType.ASSISTANT);
 		}
 		return null;

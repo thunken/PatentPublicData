@@ -23,16 +23,16 @@ public class PatentTest extends Patent {
 		DocumentId docId2 = new DocumentId(CountryCode.US, "9876543", "A1");
 		docId2.setDate(new DocumentDate("19690101"));
 		addOtherId(docId2);
-		
+
 		DocumentId docId3 = new DocumentId(CountryCode.US, "7654321", "A1");
 		docId3.setDate(new DocumentDate("19980101"));
 		addOtherId(docId3);
-		
+
 		DocumentId docId4 = new DocumentId(CountryCode.US, "6666666", "A1");
 		addOtherId(docId4);
 
-		//System.out.println(getOtherIds());
-		
+		// System.out.println(getOtherIds());
+
 		Iterator<DocumentId> docIt = getOtherIds().iterator();
 		assertEquals(docId2, docIt.next());
 		assertEquals(docId3, docIt.next());

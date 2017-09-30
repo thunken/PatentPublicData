@@ -33,24 +33,24 @@ public class ExaminerNode extends DOMFragmentReader<List<Examiner>> {
 		String artUnit = getArtUnit();
 
 		Examiner primary = getPrimaryExaminer(artUnit);
-		if (primary != null){
+		if (primary != null) {
 			examinerList.add(primary);
 		}
-		
+
 		Examiner assistant = getAssistantExaminer();
-		if (assistant != null){
+		if (assistant != null) {
 			examinerList.add(assistant);
 		}
 
 		return examinerList;
 	}
 
-	public String getArtUnit(){
+	public String getArtUnit() {
 		Node artN = document.selectSingleNode(ARTUNIT);
 		return artN != null ? artN.getText() : null;
 	}
 
-	public Examiner getPrimaryExaminer(String artUnit){
+	public Examiner getPrimaryExaminer(String artUnit) {
 		Node primaryN = document.selectSingleNode(PRIMARY);
 		if (primaryN != null) {
 			String fullName = primaryN != null ? primaryN.getText() : null;
@@ -64,7 +64,7 @@ public class ExaminerNode extends DOMFragmentReader<List<Examiner>> {
 		return null;
 	}
 
-	public Examiner getAssistantExaminer(){
+	public Examiner getAssistantExaminer() {
 		Node assistantN = document.selectSingleNode(ASSISTANT);
 		if (assistantN != null) {
 			String fullName = assistantN != null ? assistantN.getText() : null;

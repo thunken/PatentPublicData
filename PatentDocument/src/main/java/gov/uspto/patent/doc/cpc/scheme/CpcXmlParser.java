@@ -25,11 +25,11 @@ public class CpcXmlParser {
 
 	/**
 	 * Parse CharSequence (String, StringBuffer, StringBuilder, CharBuffer)
-	 *  
+	 * 
 	 * @param xmlString
 	 * @return
 	 * @throws PatentReaderException
-	 */	
+	 */
 	public ClassificationItem parse(CharSequence xmlString) throws PatentReaderException {
 		StringReader reader = new StringReader(xmlString.toString());
 		return parse(reader);
@@ -59,10 +59,10 @@ public class CpcXmlParser {
 		ClassificationItem parentClassItem = readClassificationItem(parentClassItemN, null);
 
 		List<Node> childClassItems = parentClassItemN.selectNodes("classification-item");
-		for (Node childClass: childClassItems){
+		for (Node childClass : childClassItems) {
 			readClassificationItem(childClass, parentClassItem);
 		}
-		
+
 		return parentClassItem;
 	}
 
@@ -73,23 +73,23 @@ public class CpcXmlParser {
 		List<String> titlePartsText = new LinkedList<String>();
 
 		List<Node> titleParts = classItemNode.selectNodes("class-title/title-part");
-		
+
 		for (Node titlePart : titleParts) {
 			boolean foundText = false;
-			
+
 			Node textN = titlePart.selectSingleNode("text");
-			if (textN != null){
+			if (textN != null) {
 				titlePartsText.add(textN.getText());
 				foundText = true;
 			}
-			
+
 			Node sptextN = titlePart.selectSingleNode("CPC-specific-text/text");
-			if (sptextN != null){
+			if (sptextN != null) {
 				titlePartsText.add(sptextN.getText());
 				foundText = true;
 			}
 
-			if (! foundText){
+			if (!foundText) {
 				LOGGER.error("Symbol '{}' does not have text: {}", symbol, titlePart.asXML());
 			}
 		}
@@ -97,14 +97,14 @@ public class CpcXmlParser {
 		ClassificationItem classItem = new ClassificationItem(symbol);
 		classItem.addTitlePart(titlePartsText);
 
-		if (parentClassItem == null){
+		if (parentClassItem == null) {
 			return classItem;
 		} else {
 			parentClassItem.addSubClassificationItem(classItem);
 		}
 
 		List<Node> childClassItems = classItemNode.selectNodes("classification-item");
-		for(Node child: childClassItems){
+		for (Node child : childClassItems) {
 			readClassificationItem(child, classItem);
 		}
 

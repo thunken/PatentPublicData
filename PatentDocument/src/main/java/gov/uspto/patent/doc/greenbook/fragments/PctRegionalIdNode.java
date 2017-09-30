@@ -35,19 +35,19 @@ public class PctRegionalIdNode extends DOMFragmentReader<List<DocumentId>> {
 		}
 
 		DocumentId pctFilingId = filingId(pctGroupN);
-		if (pctFilingId != null){
+		if (pctFilingId != null) {
 			docIds.add(pctFilingId);
 		}
 
 		DocumentId pctPubId = filingId(pctGroupN);
-		if (pctPubId != null){
+		if (pctPubId != null) {
 			docIds.add(pctPubId);
 		}
 
 		return docIds;
 	}
 
-	public DocumentId publicationId(Node pctGroupN){
+	public DocumentId publicationId(Node pctGroupN) {
 		Node pctPubIdN = pctGroupN.selectSingleNode("PCP");
 		if (pctPubIdN != null) {
 			DocumentId pubDocId = buildDocId(pctPubIdN.getText());
@@ -71,7 +71,7 @@ public class PctRegionalIdNode extends DOMFragmentReader<List<DocumentId>> {
 		return null;
 	}
 
-	public DocumentId filingId(Node pctGroupN){
+	public DocumentId filingId(Node pctGroupN) {
 		Node pctFilingIdN = pctGroupN.selectSingleNode("PCN");
 		if (pctFilingIdN != null) {
 			DocumentId filindDocId = buildDocId(pctFilingIdN.getText());
@@ -94,7 +94,7 @@ public class PctRegionalIdNode extends DOMFragmentReader<List<DocumentId>> {
 
 		return null;
 	}
-	
+
 	private static final Pattern PCT_ID_PATTERN = Pattern.compile("^(?:PCT/)?([A-Z]{2})([0-9]{2}/[0-9]{4,})$");
 
 	private DocumentId buildDocId(String pctDocIdString) {

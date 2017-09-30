@@ -34,11 +34,11 @@ public class CpCClassificationTest {
 
 	@Test
 	public void validParseCheck() throws ParseException {
-		for (Entry<String,String> check: validFromTo.entrySet()){
+		for (Entry<String, String> check : validFromTo.entrySet()) {
 			CpcClassification cpc = new CpcClassification();
 			cpc.parseText(check.getKey());
 
-			assertEquals( check.getValue(), cpc.getTextNormalized());
+			assertEquals(check.getValue(), cpc.getTextNormalized());
 		}
 	}
 
@@ -46,7 +46,7 @@ public class CpCClassificationTest {
 	public void testEquals() throws ParseException {
 		CpcClassification cpc1 = new CpcClassification();
 		cpc1.parseText("D07B2201");
-		
+
 		CpcClassification cpc2 = new CpcClassification();
 		cpc2.parseText("D07B2201");
 
@@ -57,10 +57,10 @@ public class CpCClassificationTest {
 	public void testEqualsUnder() throws ParseException {
 		CpcClassification cpc1 = new CpcClassification();
 		cpc1.parseText("D07B");
-		
+
 		CpcClassification cpc2 = new CpcClassification();
 		cpc2.parseText("D07B2201");
-		
+
 		assertTrue(cpc1.isContained(cpc2));
 	}
 
@@ -68,7 +68,7 @@ public class CpCClassificationTest {
 	public void testToTextNormalized() throws ParseException {
 		CpcClassification cpcClass = new CpcClassification();
 		cpcClass.parseText("D07B2201/2051");
-		
+
 		String expect = "D07B 2201/2051";
 		assertEquals(expect, cpcClass.getTextNormalized());
 	}

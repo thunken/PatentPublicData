@@ -12,7 +12,8 @@ public class ClaimRule implements Validator<Patent> {
 
 	@Override
 	public boolean test(Patent patent) {
-		if (patent.getClaims() == null || patent.getClaims().isEmpty() || patent.getClaims().get(0).getRawText().length() < 15) {
+		if (patent.getClaims() == null || patent.getClaims().isEmpty()
+				|| patent.getClaims().get(0).getRawText().length() < 15) {
 			return false;
 		}
 		return true;
@@ -22,7 +23,7 @@ public class ClaimRule implements Validator<Patent> {
 	public String getName() {
 		return NAME;
 	}
-	
+
 	@Override
 	public String getMessage() {
 		return MESSAGE;

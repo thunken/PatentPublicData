@@ -7,9 +7,10 @@ package gov.uspto.patent.model;
  * 
  * 
  * 
- * A reference to a document considered relevant to the examination of a patent application. 
- * Citations may be made by the inventor, applicant, but most tend to be made by the examiner.
- * Examiner citations are generally more limiting in scope.
+ * A reference to a document considered relevant to the examination of a patent
+ * application. Citations may be made by the inventor, applicant, but most tend
+ * to be made by the examiner. Examiner citations are generally more limiting in
+ * scope.
  */
 public abstract class Citation {
 
@@ -17,17 +18,17 @@ public abstract class Citation {
 	private final String num;
 	private boolean examinerCited;
 
-	public Citation(String num, CitationType citeType, boolean examinerCited){
+	public Citation(String num, CitationType citeType, boolean examinerCited) {
 		this.num = num;
 		this.citeType = citeType;
 		this.examinerCited = examinerCited;
 	}
 
-	public String getNum(){
+	public String getNum() {
 		return num;
 	}
 
-	public CitationType getCitType(){
+	public CitationType getCitType() {
 		return citeType;
 	}
 

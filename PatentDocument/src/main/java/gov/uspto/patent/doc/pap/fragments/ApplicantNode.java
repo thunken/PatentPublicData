@@ -37,7 +37,7 @@ public class ApplicantNode extends DOMFragmentReader<List<Applicant>> {
 
 	@Override
 	public List<Applicant> read() {
-	    applicantList = new ArrayList<Applicant>();
+		applicantList = new ArrayList<Applicant>();
 
 		@SuppressWarnings("unchecked")
 		List<Node> inventors = document.selectNodes(FRAGMENT_PATH1);
@@ -52,10 +52,10 @@ public class ApplicantNode extends DOMFragmentReader<List<Applicant>> {
 
 	private void readInventors(List<Node> inventors) {
 		for (Node inventorNode : inventors) {
-		    if (inventorNode.selectSingleNode("authority-applicant") == null){
-		        continue;
-		    }
-		    
+			if (inventorNode.selectSingleNode("authority-applicant") == null) {
+				continue;
+			}
+
 			Name name = new NameNode(inventorNode).read();
 			if (name == null) {
 				LOGGER.warn("Inventor-Applicant does not have name : {}", inventorNode.asXML());

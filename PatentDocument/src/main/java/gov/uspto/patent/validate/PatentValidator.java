@@ -9,9 +9,10 @@ import gov.uspto.patent.model.Patent;
 /**
  * Patent Validator
  * 
- * Verifies Patent meets minimum requirements, also helpful in finding parsing errors.
+ * Verifies Patent meets minimum requirements, also helpful in finding parsing
+ * errors.
  * 
- *  @author Brian G. Feldman (brian.feldman@uspto.gov)
+ * @author Brian G. Feldman (brian.feldman@uspto.gov)
  *
  */
 public class PatentValidator {

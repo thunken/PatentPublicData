@@ -48,7 +48,7 @@ public class PatCitation extends Citation {
 
 	@Override
 	public String toString() {
-		return "PatCitation [num=" + super.getNum() + ", documentId=" + documentId + ", isExaminerCited=" + super.isExaminerCited()
-				+ ", mainClassification=" + mainClassification + "]";
+		return "PatCitation [num=" + super.getNum() + ", documentId=" + documentId + ", isExaminerCited="
+				+ super.isExaminerCited() + ", mainClassification=" + mainClassification + "]";
 	}
 }

@@ -53,7 +53,7 @@ public class ClassificationNode extends DOMFragmentReader<Set<PatentClassificati
 
 		Set<PatentClassification> classifications = new LinkedHashSet<PatentClassification>();
 
-		//Node ipcEditionN = ipcClassNode.selectSingleNode("B516/PDAT");
+		// Node ipcEditionN = ipcClassNode.selectSingleNode("B516/PDAT");
 
 		// Primary IPC classification.
 		@SuppressWarnings("unchecked")
@@ -91,7 +91,7 @@ public class ClassificationNode extends DOMFragmentReader<Set<PatentClassificati
 		if (uspcNode == null) {
 			return Collections.emptySet();
 		}
-		
+
 		Set<PatentClassification> classifications = new LinkedHashSet<PatentClassification>();
 
 		// Primary USPC classification.
@@ -136,7 +136,7 @@ public class ClassificationNode extends DOMFragmentReader<Set<PatentClassificati
 						uspcN.asXML());
 			}
 		}
-		
+
 		return classifications;
 	}
 

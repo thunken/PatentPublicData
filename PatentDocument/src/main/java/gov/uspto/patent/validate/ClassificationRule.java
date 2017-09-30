@@ -12,7 +12,7 @@ public class ClassificationRule implements Validator<Patent> {
 
 	@Override
 	public boolean test(Patent patent) {
-		if (patent.getClassification() == null || patent.getClassification().isEmpty()){
+		if (patent.getClassification() == null || patent.getClassification().isEmpty()) {
 			return false;
 		}
 		return true;
@@ -22,7 +22,7 @@ public class ClassificationRule implements Validator<Patent> {
 	public String getName() {
 		return NAME;
 	}
-	
+
 	@Override
 	public String getMessage() {
 		return MESSAGE;

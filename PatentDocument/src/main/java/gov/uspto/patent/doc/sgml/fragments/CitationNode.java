@@ -16,7 +16,8 @@ import gov.uspto.patent.model.PatCitation;
 /**
  * CitationNode
  * 
- *<pre><code>
+ * <pre>
+ * <code>
  * <!--Non-patent literature citation (include patent applications within the DOC model) -->
  * <!ELEMENT NCIT   (DOC?,STEXT+) >
  * <!--Patent citation-->
@@ -28,7 +29,9 @@ import gov.uspto.patent.model.PatCitation;
  * <!ELEMENT B561   (PCIT,(CITED-BY-EXAMINER | CITED-BY-OTHER)?) >
  *  <!--Citing non-patent literature-->
  * <!ELEMENT B562   (NCIT,(CITED-BY-EXAMINER | CITED-BY-OTHER)?) >
- *</code><pre>
+ *</code>
+ * 
+ * <pre>
  *
  * @author Brian G. Feldman (brian.feldman@uspto.gov)
  *
@@ -46,7 +49,7 @@ public class CitationNode extends DOMFragmentReader<List<Citation>> {
 		List<Citation> citations = new ArrayList<Citation>();
 
 		Node citationNode = document.selectSingleNode(FRAGMENT_PATH);
-		if (citationNode == null){
+		if (citationNode == null) {
 			return citations;
 		}
 
@@ -65,7 +68,6 @@ public class CitationNode extends DOMFragmentReader<List<Citation>> {
 			citations.add(new PatCitation(String.valueOf(i), docId, examinerCited));
 		}
 
-		
 		@SuppressWarnings("unchecked")
 		List<Node> nplCiteNodes = citationNode.selectNodes("B562");
 		for (int i = 0; i < nplCiteNodes.size(); i++) {
@@ -76,9 +78,9 @@ public class CitationNode extends DOMFragmentReader<List<Citation>> {
 
 			Node textN = citeNode.selectSingleNode("NCIT/STEXT/PDAT");
 			String citeText = textN != null ? textN.getText() : "";
-			
+
 			Citation citation = new NplCitation(String.valueOf(i), citeText, examinerCited);
-			
+
 			citations.add(citation);
 		}
 

@@ -14,9 +14,9 @@ public class NplCitation extends Citation {
 		this.citeText = citeText;
 	}
 
-	public String getQuotedText(){
+	public String getQuotedText() {
 		Matcher matcher = QUOTED_TEXT.matcher(citeText);
-		if (matcher.find()){
+		if (matcher.find()) {
 			return matcher.group(1);
 		}
 		return "";
@@ -46,10 +46,11 @@ public class NplCitation extends Citation {
 		} else {
 			return false;
 		}
-	}	
-	
+	}
+
 	@Override
 	public String toString() {
-		return "NplCitation [num=" + super.getNum() + ", citeText=" + citeText + ", quotedText()=" + getQuotedText() +", examinerCited=" + super.isExaminerCited() + " ]";
+		return "NplCitation [num=" + super.getNum() + ", citeText=" + citeText + ", quotedText()=" + getQuotedText()
+				+ ", examinerCited=" + super.isExaminerCited() + " ]";
 	}
 }

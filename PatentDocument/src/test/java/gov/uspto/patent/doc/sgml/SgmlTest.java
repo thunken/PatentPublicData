@@ -16,16 +16,18 @@ import gov.uspto.patent.model.Patent;
 
 public class SgmlTest {
 
-    @Test
-    public void readSamples() throws PatentReaderException, IOException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
-        Sgml sgml = new Sgml();
-        Path dirPath = Paths.get("resources/samples/sgml");
-        Preconditions.checkArgument(dirPath.toFile().isDirectory(), "SGML sample dir does not exist.");
-        for (File file : dirPath.toFile().listFiles()) {
-            Patent patent = sgml.parse(file);
-            ValidatePatent.methodsReturnNonNull(patent);
-            //System.out.println(patent.getDocumentId().toText() + " - " + patent.getTitle());
-        }
-    }
+	@Test
+	public void readSamples() throws PatentReaderException, IOException, IllegalAccessException,
+			IllegalArgumentException, InvocationTargetException {
+		Sgml sgml = new Sgml();
+		Path dirPath = Paths.get("resources/samples/sgml");
+		Preconditions.checkArgument(dirPath.toFile().isDirectory(), "SGML sample dir does not exist.");
+		for (File file : dirPath.toFile().listFiles()) {
+			Patent patent = sgml.parse(file);
+			ValidatePatent.methodsReturnNonNull(patent);
+			// System.out.println(patent.getDocumentId().toText() + " - " +
+			// patent.getTitle());
+		}
+	}
 
 }

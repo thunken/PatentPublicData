@@ -44,8 +44,8 @@ public class ClaimNode extends DOMFragmentReader<List<Claim>> {
 	public Claim readClaim(Node claimNode) {
 		String id = claimNode.selectSingleNode("@id").getText();
 
-		//Node claimTypeN = claimNode.selectSingleNode("@claim-type");
-		//String claimType = claimTypeN != null ? claimTypeN.getText() : null;
+		// Node claimTypeN = claimNode.selectSingleNode("@claim-type");
+		// String claimType = claimTypeN != null ? claimTypeN.getText() : null;
 
 		Claim claim;
 		List<Node> dependentN = claimNode.selectNodes("*/claim-ref/@idref");

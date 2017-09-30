@@ -42,7 +42,7 @@ public class DescriptionNode extends DOMFragmentReader<Description> {
 		Node drawingDesc = descriptionN.selectSingleNode("DRWDESC");
 		if (drawingDesc != null) {
 			desc.addSection(new DescriptionSection(DescSection.DRAWING_DESC, drawingDesc.asXML(), textProcessor));
-			
+
 			List<Figure> figures = new DescriptionFigures(drawingDesc).read();
 			desc.addFigures(figures);
 		}

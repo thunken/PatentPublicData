@@ -30,7 +30,7 @@ public class InventorNode extends DOMFragmentReader<List<Inventor>> {
 		for (Node inventorN : inventors) {
 			Node dataNode = inventorN.selectSingleNode("B721/PARTY-US");
 			Inventor inventor = readInventor(dataNode);
-			if (inventor != null){
+			if (inventor != null) {
 				inventorList.add(inventor);
 			}
 		}

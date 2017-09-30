@@ -14,7 +14,7 @@ public class ClassificationPredicateTest {
 
 	@Test
 	public void testFalse() throws ParseException {
-		
+
 		CpcClassification wantCpc = new CpcClassification();
 		wantCpc.parseText("A01B300");
 		Predicate<PatentClassification> predicate = ClassificationPredicate.isContained(wantCpc);
@@ -23,13 +23,13 @@ public class ClassificationPredicateTest {
 		checkCpc.parseText("A01B33/00");
 
 		assertFalse(wantCpc.isContained(checkCpc));
-		
+
 		assertFalse(predicate.test(checkCpc));
 	}
 
 	@Test
 	public void testEqual() throws ParseException {
-		
+
 		CpcClassification wantCpc = new CpcClassification();
 		wantCpc.parseText("A01B300");
 		Predicate<PatentClassification> predicate = ClassificationPredicate.isContained(wantCpc);
@@ -38,7 +38,7 @@ public class ClassificationPredicateTest {
 		checkCpc.parseText("A01B300");
 
 		assertTrue(wantCpc.isContained(checkCpc));
-		
+
 		assertTrue(predicate.test(checkCpc));
 	}
 
@@ -53,7 +53,7 @@ public class ClassificationPredicateTest {
 		checkCpc.parseText("D07B22012051");
 
 		assertTrue(wantCpc.isContained(checkCpc));
-		
+
 		assertTrue(predicate.test(checkCpc));
 	}
 
@@ -71,8 +71,8 @@ public class ClassificationPredicateTest {
 		Set<CpcClassification> cpcClasses = new HashSet<CpcClassification>();
 		cpcClasses.add(cpc1);
 		cpcClasses.add(cpc2);
-		
-		//assertTrue(wantCpc.isContained(cpcClasses));
+
+		// assertTrue(wantCpc.isContained(cpcClasses));
 		assertTrue(cpcClasses.stream().anyMatch(predicate));
 	}
 }

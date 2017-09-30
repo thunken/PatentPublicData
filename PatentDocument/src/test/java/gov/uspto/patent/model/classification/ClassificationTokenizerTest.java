@@ -39,17 +39,19 @@ public class ClassificationTokenizerTest {
 		assertArrayEquals(expected, actual);
 
 		List<String> classificationFacets = Arrays.asList(actual);
-		
-		List<CpcClassification> cpcClasses = ClassificationTokenizer.fromFacets(classificationFacets, CpcClassification.class);
-		//System.out.println(cpcClasses);
+
+		List<CpcClassification> cpcClasses = ClassificationTokenizer.fromFacets(classificationFacets,
+				CpcClassification.class);
+		// System.out.println(cpcClasses);
 
 		assertEquals(cpc, cpcClasses.get(0));
 	}
 
 	@Test
 	public void testMostSpecificClasses() throws ParseException {
-		String[] facets = new String[]{"0/E03D", "0/G06F", "1/E03D/E03D9", "1/G06F/G06F3", "2/E03D/E03D9/E03D908", "2/G06F/G06F3/G06F3041"};
-		String[] expect = new String[]{"E03D908", "G06F3041"};
+		String[] facets = new String[] { "0/E03D", "0/G06F", "1/E03D/E03D9", "1/G06F/G06F3", "2/E03D/E03D9/E03D908",
+				"2/G06F/G06F3/G06F3041" };
+		String[] expect = new String[] { "E03D908", "G06F3041" };
 
 		List<String> cpcClass = ClassificationTokenizer.getMostSpecificClasses(Arrays.asList(facets));
 

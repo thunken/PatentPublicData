@@ -41,8 +41,8 @@ public class ApplicationIdNode extends DOMFragmentReader<DocumentId> {
 			return null;
 		}
 
-		//Node seriesCodeN = patentNode.selectSingleNode("B211US/PDAT/PDAT");
-		//String seriesCode = seriesCodeN != null ? seriesCodeN.getText() : null;
+		// Node seriesCodeN = patentNode.selectSingleNode("B211US/PDAT/PDAT");
+		// String seriesCode = seriesCodeN != null ? seriesCodeN.getText() : null;
 
 		DocumentId documentId = new DocumentId(defaultCountryCode, docNumN.getText(), null);
 

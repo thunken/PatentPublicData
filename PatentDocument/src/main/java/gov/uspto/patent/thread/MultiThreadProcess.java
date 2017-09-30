@@ -8,12 +8,12 @@ import gov.uspto.patent.serialize.DocumentBuilder;
 
 public class MultiThreadProcess {
 
-    public MultiThreadProcess(File file, DocumentBuilder<MasterClassificationRecord> docBuilder, Path outputDir){
-        
-    }
-    
-    public void init(int maxThreads){
-        
-    }
-    
+	public MultiThreadProcess(File file, DocumentBuilder<MasterClassificationRecord> docBuilder, Path outputDir) {
+
+	}
+
+	public void init(int maxThreads) {
+
+	}
+
 }

@@ -10,28 +10,30 @@ import gov.uspto.patent.model.CountryCode;
 import gov.uspto.patent.model.entity.Address;
 
 /**
- *<h3>ADR Individual or organization address</h3>
- *<p> 
- *<li>NAM Name, organization, if part of address
- *<li>OMC PDAT Organization mail code
- *<li>PBOX PDAT Post office box number
- *<li>STR PDAT Street, house number or name, district (of city), apt. number, etc.
- *<li>CITY PDAT City or town
- *<li>CNTY PDAT County, parish, department, etc.
- *<li>STATE PDAT Region of country (state, province, etc.)
- *<li>CTRY PDAT Country
- *<li>PCODE PDAT Postal code
- *<li>EAD PDAT Electronic address (e.g., e-mail)
- *<li>TEL PDAT Telephone number, including area or regional code
- *<li>FAX PDAT Facsimile telephone number 
- *</p>
- *<p>
- *<pre>
+ * <h3>ADR Individual or organization address</h3>
+ * <p>
+ * <li>NAM Name, organization, if part of address
+ * <li>OMC PDAT Organization mail code
+ * <li>PBOX PDAT Post office box number
+ * <li>STR PDAT Street, house number or name, district (of city), apt. number,
+ * etc.
+ * <li>CITY PDAT City or town
+ * <li>CNTY PDAT County, parish, department, etc.
+ * <li>STATE PDAT Region of country (state, province, etc.)
+ * <li>CTRY PDAT Country
+ * <li>PCODE PDAT Postal code
+ * <li>EAD PDAT Electronic address (e.g., e-mail)
+ * <li>TEL PDAT Telephone number, including area or regional code
+ * <li>FAX PDAT Facsimile telephone number
+ * </p>
+ * <p>
+ * 
+ * <pre>
  *{@code
  * <!ELEMENT ADR - - (OMC?,PBOX?,STR*,CITY?,CNTY?,STATE?,CTRY?,PCODE?,EAD*,TEL*,FAX*) > 
  *}
- *</pre>
- *</p>
+ * </pre>
+ * </p>
  *
  * @author Brian G. Feldman (brian.feldman@uspto.gov)
  *

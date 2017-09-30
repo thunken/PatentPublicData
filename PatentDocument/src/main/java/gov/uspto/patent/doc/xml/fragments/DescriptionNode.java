@@ -16,10 +16,11 @@ import gov.uspto.patent.model.DescriptionSection;
 import gov.uspto.patent.model.Figure;
 
 /**
- * Description Node 
- *<p>
- *Note: Design Patent's description field usually only contain the DRAWING_DESC subsection, Design Patent may also not have an Abstract field.
- *</p>
+ * Description Node
+ * <p>
+ * Note: Design Patent's description field usually only contain the DRAWING_DESC
+ * subsection, Design Patent may also not have an Abstract field.
+ * </p>
  * 
  * @author Brian G. Feldman (brian.feldman@uspto.gov)
  *
@@ -43,21 +44,22 @@ public class DescriptionNode extends DOMFragmentReader<Description> {
 			return desc;
 		}
 
-		String relAppDesc = getSectionText(descN, new String[]{"cross-reference-to-related-applications", "RELAPP"});
+		String relAppDesc = getSectionText(descN, new String[] { "cross-reference-to-related-applications", "RELAPP" });
 		if (relAppDesc != null && relAppDesc.length() > 20) {
 			desc.addSection(new DescriptionSection(DescSection.REL_APP_DESC, relAppDesc, textProcessor));
 		} else {
-			LOGGER.debug("Patent Description, missing RELAPP subsection."); // if no related apps this section may not exist.
+			LOGGER.debug("Patent Description, missing RELAPP subsection."); // if no related apps this section may not
+																			// exist.
 		}
 
-		String briefSummary = getSectionText(descN, new String[]{"summary-of-invention", "BRFSUM"});
+		String briefSummary = getSectionText(descN, new String[] { "summary-of-invention", "BRFSUM" });
 		if (briefSummary != null && briefSummary.length() > 20) {
 			desc.addSection(new DescriptionSection(DescSection.BRIEF_SUMMARY, briefSummary, textProcessor));
 		} else {
 			LOGGER.debug("Patent Description, missing BRFSUM subsection.");
 		}
 
-		String drawingDesc = getSectionText(descN, new String[]{"brief-description-of-drawings"});
+		String drawingDesc = getSectionText(descN, new String[] { "brief-description-of-drawings" });
 		if (drawingDesc != null) {
 			desc.addSection(new DescriptionSection(DescSection.DRAWING_DESC, drawingDesc, textProcessor));
 
@@ -67,7 +69,7 @@ public class DescriptionNode extends DOMFragmentReader<Description> {
 			LOGGER.debug("Patent Description, missing DRAWING_DESC subsection.");
 		}
 
-		String detailedDesc = getSectionText(descN, new String[]{"detailed-description", "DETDESC"});
+		String detailedDesc = getSectionText(descN, new String[] { "detailed-description", "DETDESC" });
 		if (detailedDesc != null) {
 			desc.addSection(new DescriptionSection(DescSection.DETAILED_DESC, detailedDesc, textProcessor));
 		} else {
@@ -80,22 +82,27 @@ public class DescriptionNode extends DOMFragmentReader<Description> {
 	/**
 	 * Get all node between two XML Processing Instructions nodes
 	 *
-	 *<p><pre>
+	 * <p>
+	 * 
+	 * <pre>
 	 *{@code
 	 * <?RELAPP description="Other Patent Relations" end="lead"?>
-	 * <p id="p-0002" num="0001">This application claims priority To Provisional Application File ...</p>
+	 * <p id="p-0002" num=
+	"0001">This application claims priority To Provisional Application File ...</p>
 	 * <?RELAPP description="Other Patent Relations" end="tail"?>
 	 *}
-	 *</pre></p> 
+	 * </pre>
+	 * </p>
+	 * 
 	 * @param parentNode
 	 * @param name
 	 * @return
 	 */
 	public static String getSectionText(Node parentNode, String[] names) {
 		List<Node> nodeLst = null;
-		for (String name: names){
+		for (String name : names) {
 			nodeLst = getSectionNodes(parentNode, name);
-			if (nodeLst != null && nodeLst.size() > 1){
+			if (nodeLst != null && nodeLst.size() > 1) {
 				break;
 			}
 		}
@@ -112,14 +119,16 @@ public class DescriptionNode extends DOMFragmentReader<Description> {
 	}
 
 	@SuppressWarnings("unchecked")
-	public static List<Node> getSectionNodes(Node parentNode, String name){
+	public static List<Node> getSectionNodes(Node parentNode, String name) {
 		return parentNode.selectNodes(getXPATHStatement(name));
 	}
 
 	/**
 	 * XPATH to select all nodes between two processing-instructions.
 	 *
-	 *<p><pre>
+	 * <p>
+	 * 
+	 * <pre>
 	 *{@code
 	 * //node()[
 	 *   preceding-sibling::processing-instruction()[1][
@@ -132,7 +141,8 @@ public class DescriptionNode extends DOMFragmentReader<Description> {
 	 *   ]
 	 * ]
 	 *}
-	 *</pre></p> 
+	 * </pre>
+	 * </p>
 	 * 
 	 * @param name
 	 * @return

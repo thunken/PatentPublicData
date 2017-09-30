@@ -31,7 +31,7 @@ public class ClassificationSearchNode extends DOMFragmentReader<Set<PatentClassi
 		super(document);
 
 		Node parentPath = document.selectSingleNode(FRAGMENT_PATH);
-		if (parentPath != null){
+		if (parentPath != null) {
 			this.parentPath = parentPath;
 		} else {
 			this.parentPath = document.getRootElement();
@@ -51,8 +51,7 @@ public class ClassificationSearchNode extends DOMFragmentReader<Set<PatentClassi
 				ipc.parseText(ipcN.getText());
 				classifications.add(ipc);
 			} catch (ParseException e) {
-				LOGGER.debug("Failed to Parse IPC Classification: '{}' from : {}", ipcN.getText(),
-						ipcN.asXML());
+				LOGGER.debug("Failed to Parse IPC Classification: '{}' from : {}", ipcN.getText(), ipcN.asXML());
 			}
 		}
 

@@ -34,13 +34,13 @@ public class ClassificationNode extends DOMFragmentReader<Set<PatentClassificati
 		return classifications;
 	}
 
-	public void readUSPC(){
+	public void readUSPC() {
 		Node uspcN = document.selectSingleNode(USPC_PATH);
-		if (uspcN != null){
+		if (uspcN != null) {
 			Node uspcPrimaryClassN = uspcN.selectSingleNode("classification-us-primary/uspc/class");
 			Node uspcPrimarySubClassN = uspcN.selectSingleNode("classification-us-primary/uspc/subclass");
 
-			if (uspcPrimaryClassN != null && uspcPrimarySubClassN != null){
+			if (uspcPrimaryClassN != null && uspcPrimarySubClassN != null) {
 				String mainClass = uspcPrimaryClassN.getText();
 				String subClass = uspcPrimarySubClassN.getText();
 
@@ -54,15 +54,15 @@ public class ClassificationNode extends DOMFragmentReader<Set<PatentClassificati
 
 			@SuppressWarnings("unchecked")
 			List<Node> uspcSecondaries = uspcN.selectNodes("classification-us-secondary");
-			for(Node uspcSecoundary: uspcSecondaries){
+			for (Node uspcSecoundary : uspcSecondaries) {
 
 				Node mainClassN = uspcSecoundary.selectSingleNode("uspc/class");
 				Node subClassN = uspcSecoundary.selectSingleNode("uspc/subclass");
 
-				if (mainClassN != null && mainClassN != null){
+				if (mainClassN != null && mainClassN != null) {
 					String mainClass = uspcPrimaryClassN.getText();
 					String subClass = subClassN.getText();
-					
+
 					UspcClassification uspc = new UspcClassification();
 					uspc.setTextOriginal(mainClass + subClass);
 					uspc.setMainClass(mainClass);
@@ -73,11 +73,11 @@ public class ClassificationNode extends DOMFragmentReader<Set<PatentClassificati
 		}
 	}
 
-	public void readIPC(){
+	public void readIPC() {
 		Node ipcN = document.selectSingleNode(IPC_PATH);
-		if (ipcN != null){
+		if (ipcN != null) {
 			Node ipcPrimaryClassN = ipcN.selectSingleNode("classification-ipc-primary/ipc");
-			if (ipcPrimaryClassN != null){
+			if (ipcPrimaryClassN != null) {
 				String ipcPrimaryClassStr = ipcPrimaryClassN != null ? ipcPrimaryClassN.getText() : null;
 				try {
 					IpcClassification ipcPrimaryClass = new IpcClassification();
@@ -91,7 +91,7 @@ public class ClassificationNode extends DOMFragmentReader<Set<PatentClassificati
 
 			@SuppressWarnings("unchecked")
 			List<Node> ipcSecondaries = ipcN.selectNodes("classification-ipc-secondary/ipc");
-			for(Node ipcSecoundary: ipcSecondaries){
+			for (Node ipcSecoundary : ipcSecondaries) {
 				String ipcSecondaryClassStr = ipcSecoundary != null ? ipcSecoundary.getText() : null;
 				try {
 					IpcClassification ipcSecondaryClass = new IpcClassification();
