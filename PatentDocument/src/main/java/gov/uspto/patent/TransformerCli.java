@@ -28,7 +28,6 @@ import gov.uspto.patent.model.Patent;
 import gov.uspto.patent.serialize.DocumentBuilder;
 import gov.uspto.patent.serialize.JsonMapper;
 import gov.uspto.patent.serialize.JsonMapperFlat;
-
 import joptsimple.OptionParser;
 import joptsimple.OptionSet;
 

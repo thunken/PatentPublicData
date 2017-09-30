@@ -1,12 +1,11 @@
 package gov.uspto.patent.doc.xml;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
 import gov.uspto.patent.doc.simplehtml.FreetextConfig;
 import gov.uspto.patent.doc.simplehtml.HtmlFieldType;
-import gov.uspto.patent.doc.xml.FormattedText;
 
 public class FormattedTextCustomizeTest {
 

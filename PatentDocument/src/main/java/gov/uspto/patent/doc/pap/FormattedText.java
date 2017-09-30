@@ -27,7 +27,6 @@ import gov.uspto.patent.ReferenceTagger;
 import gov.uspto.patent.TextProcessor;
 import gov.uspto.patent.doc.simplehtml.FreetextConfig;
 import gov.uspto.patent.doc.simplehtml.HtmlToPlainText;
-import gov.uspto.patent.mathml.MathmlEscaper;
 
 /**
  * Parse and Clean Formated Text Fields, such as Description, Abstract and

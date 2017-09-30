@@ -2,6 +2,8 @@ package gov.uspto.patent.doc.greenbook.items;
 
 import java.util.List;
 
+import javax.naming.directory.InvalidAttributesException;
+
 import org.dom4j.Node;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

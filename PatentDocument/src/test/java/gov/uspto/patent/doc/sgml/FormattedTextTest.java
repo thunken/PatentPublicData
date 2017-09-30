@@ -1,10 +1,8 @@
 package gov.uspto.patent.doc.sgml;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
-
-import gov.uspto.patent.doc.sgml.FormattedText;
 
 public class FormattedTextTest {
 

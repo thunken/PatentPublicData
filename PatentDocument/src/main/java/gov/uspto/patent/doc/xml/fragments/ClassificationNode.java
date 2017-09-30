@@ -12,10 +12,10 @@ import gov.uspto.patent.doc.xml.items.ClassificationCpcNode;
 import gov.uspto.patent.doc.xml.items.ClassificationIPCNode;
 import gov.uspto.patent.doc.xml.items.ClassificationLocarnoNode;
 import gov.uspto.patent.doc.xml.items.ClassificationNationalNode;
-import gov.uspto.patent.model.classification.PatentClassification;
 import gov.uspto.patent.model.classification.CpcClassification;
 import gov.uspto.patent.model.classification.IpcClassification;
 import gov.uspto.patent.model.classification.LocarnoClassification;
+import gov.uspto.patent.model.classification.PatentClassification;
 import gov.uspto.patent.model.classification.UspcClassification;
 
 public class ClassificationNode extends DOMFragmentReader<Set<PatentClassification>> {

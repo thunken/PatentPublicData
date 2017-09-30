@@ -3,8 +3,6 @@ package gov.uspto.patent.doc.sgml.fragments;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.naming.directory.InvalidAttributesException;
-
 import org.dom4j.Document;
 import org.dom4j.Node;
 import org.slf4j.Logger;
@@ -15,7 +13,6 @@ import gov.uspto.patent.doc.sgml.items.NameNode;
 import gov.uspto.patent.model.ExaminerType;
 import gov.uspto.patent.model.entity.Examiner;
 import gov.uspto.patent.model.entity.Name;
-import gov.uspto.patent.model.entity.NamePerson;
 
 public class ExaminerNode extends DOMFragmentReader<List<Examiner>> {
 	private static final Logger LOGGER = LoggerFactory.getLogger(ExaminerNode.class);

@@ -8,8 +8,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import gov.uspto.parser.dom4j.ItemReader;
-import gov.uspto.patent.model.classification.PatentClassification;
 import gov.uspto.patent.model.classification.IpcClassification;
+import gov.uspto.patent.model.classification.PatentClassification;
 
 public class ClassificationIPCNode extends ItemReader<PatentClassification> {
     private static final Logger LOGGER = LoggerFactory.getLogger(ClassificationIPCNode.class);

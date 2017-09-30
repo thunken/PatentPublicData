@@ -7,7 +7,6 @@ import javax.json.JsonObject;
 
 import org.junit.Test;
 
-import gov.uspto.patent.FreetextField;
 import gov.uspto.patent.InvalidDataException;
 import gov.uspto.patent.doc.xml.FormattedText;
 import gov.uspto.patent.model.Abstract;
@@ -24,7 +23,6 @@ import gov.uspto.patent.model.entity.Assignee;
 import gov.uspto.patent.model.entity.Inventor;
 import gov.uspto.patent.model.entity.NameOrg;
 import gov.uspto.patent.model.entity.NamePerson;
-import gov.uspto.patent.serialize.JsonMapper;
 
 public class JsonMapperTest {
 

@@ -9,8 +9,6 @@ import java.util.Map.Entry;
 
 import org.junit.Test;
 
-import gov.uspto.patent.model.classification.IpcClassification;
-
 public class IpcClassificationTest {
 
 	private static Map<String, String> validFromTo = new LinkedHashMap<String, String>();

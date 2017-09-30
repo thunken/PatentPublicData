@@ -9,7 +9,6 @@ import java.util.TreeSet;
 import java.util.function.Predicate;
 
 import gov.uspto.common.DateRange;
-import gov.uspto.patent.DateTextType;
 import gov.uspto.patent.InvalidDataException;
 import gov.uspto.patent.model.classification.PatentClassification;
 import gov.uspto.patent.model.entity.Agent;

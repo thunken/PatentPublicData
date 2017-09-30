@@ -24,7 +24,6 @@ import gov.uspto.patent.model.classification.CpcClassification;
 import gov.uspto.patent.model.classification.PatentClassification;
 import gov.uspto.patent.serialize.DocumentBuilder;
 import gov.uspto.patent.thread.DumpFileProcessThread;
-
 import joptsimple.OptionParser;
 import joptsimple.OptionSet;
 

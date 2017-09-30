@@ -1,6 +1,6 @@
 package gov.uspto.patent.model;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -9,8 +9,6 @@ import java.util.Map.Entry;
 import org.junit.Test;
 
 import gov.uspto.patent.InvalidDataException;
-import gov.uspto.patent.model.CountryCode;
-import gov.uspto.patent.model.DocumentId;
 
 public class DocumentIdTest {
 

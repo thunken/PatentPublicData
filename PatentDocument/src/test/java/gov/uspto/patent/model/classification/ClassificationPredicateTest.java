@@ -1,6 +1,7 @@
 package gov.uspto.patent.model.classification;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import java.text.ParseException;
 import java.util.HashSet;

@@ -1,7 +1,5 @@
 package gov.uspto.patent.doc.greenbook;
 
-import static org.junit.Assert.*;
-
 import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;

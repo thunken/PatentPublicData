@@ -15,8 +15,6 @@ import com.google.common.base.Preconditions;
 
 import gov.uspto.common.file.archive.ZipReader;
 import gov.uspto.common.filter.SuffixFilter;
-import gov.uspto.patent.bulk.DumpFile;
-import gov.uspto.patent.bulk.DumpFileXml;
 
 /**
  * 
