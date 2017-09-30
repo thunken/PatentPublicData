@@ -36,7 +36,7 @@ public class DownloadJob implements Serializable, Iterable<DownloadFile> {
 	static {
 		JSON_MAPPER.registerModule(new Jdk7Module());
 	}
-	
+
 	private Path downloadDir;
 	private boolean isJobComplete;
 	private int taskTotal;
@@ -67,10 +67,11 @@ public class DownloadJob implements Serializable, Iterable<DownloadFile> {
 	 */
 	@JsonCreator
 	private DownloadJob(@JsonProperty("downloadTasks") ArrayList<LinkedHashMap> downloadTasks) throws IOException {
-		this.downloadTasks = JSON_MAPPER.convertValue(downloadTasks, new TypeReference<List<DownloadFile>>() {});
+		this.downloadTasks = JSON_MAPPER.convertValue(downloadTasks, new TypeReference<List<DownloadFile>>() {
+		});
 		this.taskTotal = downloadTasks.size();
-	}	
-	
+	}
+
 	public Path getDownloadDir() {
 		return downloadDir;
 	}

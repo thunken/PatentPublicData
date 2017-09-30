@@ -41,12 +41,14 @@ import joptsimple.OptionSet;
 import okhttp3.HttpUrl;
 
 /**
- * Download Weekly Bulk Downloads, keeping one at a time, extract out Patent Documents which match specified CPC Classifications.
+ * Download Weekly Bulk Downloads, keeping one at a time, extract out Patent
+ * Documents which match specified CPC Classifications.
  * 
- *<pre>
- * Example Usage:
- *    gov.uspto.bulkdata.corpusbuilder.Corpus --type application --outdir="../download" --years=2014,2016 --cpc=H04N21/00 --uspc=725
- *<pre>
+ * <pre>
+ * Example Usage: gov.uspto.bulkdata.corpusbuilder.Corpus --type application
+ * --outdir="../download" --years=2014,2016 --cpc=H04N21/00 --uspc=725
+ * 
+ * <pre>
  * 
  * @author Brian G. Feldman (brian.feldman@uspto.gov)
  *
@@ -92,8 +94,8 @@ public class Corpus {
 	}
 
 	/**
-	 * Shrink the Queue to only URLS matching specified filenames.
-	 * This method should be called after enqueue(), to keep only wanted filenames.
+	 * Shrink the Queue to only URLS matching specified filenames. This method
+	 * should be called after enqueue(), to keep only wanted filenames.
 	 * 
 	 * @param filenames
 	 * @return
@@ -156,7 +158,7 @@ public class Corpus {
 
 		PatentDocFormat patentDocFormat = new PatentDocFormatDetect().fromFileName(currentFile);
 
-		switch(patentDocFormat){
+		switch (patentDocFormat) {
 		case Greenbook:
 			currentBulkFile = new DumpFileAps(currentFile);
 			break;
@@ -189,7 +191,8 @@ public class Corpus {
 						write(docStr);
 					}
 				} catch (PatentReaderException e) {
-					LOGGER.error("Error reading Patent {}:{}", currentBulkFile.getFile().getName(), currentBulkFile.getCurrentRecCount(), e);
+					LOGGER.error("Error reading Patent {}:{}", currentBulkFile.getFile().getName(),
+							currentBulkFile.getCurrentRecCount(), e);
 				}
 			}
 		} finally {
@@ -221,9 +224,9 @@ public class Corpus {
 			{
 				accepts("type").withRequiredArg().ofType(String.class)
 						.describedAs("Patent Document Type [grant, application]").required();
-                accepts("date").withRequiredArg().ofType(String.class)
-                .describedAs("Single Date Range or list, example: 20150801-20150901,20160501-20160601")
-                .required();
+				accepts("date").withRequiredArg().ofType(String.class)
+						.describedAs("Single Date Range or list, example: 20150801-20150901,20160501-20160601")
+						.required();
 				accepts("skip").withOptionalArg().ofType(Integer.class).describedAs("Number of bulk files to skip")
 						.defaultsTo(0);
 				accepts("delete").withOptionalArg().ofType(Boolean.class)
@@ -237,9 +240,12 @@ public class Corpus {
 						.defaultsTo("xml");
 				accepts("name").withOptionalArg().ofType(String.class).describedAs("Name to give output file")
 						.defaultsTo("corpus");
-				accepts("eval").withOptionalArg().ofType(String.class).describedAs("Eval [xml, patent]: XML (Xpath XML lookup) or Patent to Instatiate Patent Object")
-				.defaultsTo("xml");
-				accepts("xmlBodyTag").withOptionalArg().ofType(String.class).describedAs("XML Body Tag which wrapps document: [us-patent, PATDOC, patent-application-publication]").defaultsTo("us-patent");
+				accepts("eval").withOptionalArg().ofType(String.class)
+						.describedAs("Eval [xml, patent]: XML (Xpath XML lookup) or Patent to Instatiate Patent Object")
+						.defaultsTo("xml");
+				accepts("xmlBodyTag").withOptionalArg().ofType(String.class).describedAs(
+						"XML Body Tag which wrapps document: [us-patent, PATDOC, patent-application-publication]")
+						.defaultsTo("us-patent");
 			}
 		};
 
@@ -281,24 +287,24 @@ public class Corpus {
 			throw new IllegalArgumentException("Unknown Download Source: " + type);
 		}
 
-        String dataInpuStr = (String) options.valueOf("date");
+		String dataInpuStr = (String) options.valueOf("date");
 
-        ListMultimap<String, DateRange> yearMap = LinkedListMultimap.create();
-        Iterable<String> dateInputList = Splitter.on(",").omitEmptyStrings().trimResults().split(dataInpuStr);
-        for (String dateStr : dateInputList) {
-            List<String> dateInputRange = Splitter.on("-").omitEmptyStrings().trimResults().splitToList(dateStr);
-            if (dateInputRange.size() == 2) {
-                DateRange dateRange = DateRange.parse(dateInputRange.get(0), dateInputRange.get(1),
-                        DateTimeFormatter.BASIC_ISO_DATE);
-                for (Integer year : dateRange.getYearsBetween()) {
-                    yearMap.put(String.valueOf(year), dateRange);
-                }
-            } else {
-                LOGGER.warn("Invalid DateRange has more than two dashs: {}", dateInputRange);
-            }
-        }
+		ListMultimap<String, DateRange> yearMap = LinkedListMultimap.create();
+		Iterable<String> dateInputList = Splitter.on(",").omitEmptyStrings().trimResults().split(dataInpuStr);
+		for (String dateStr : dateInputList) {
+			List<String> dateInputRange = Splitter.on("-").omitEmptyStrings().trimResults().splitToList(dateStr);
+			if (dateInputRange.size() == 2) {
+				DateRange dateRange = DateRange.parse(dateInputRange.get(0), dateInputRange.get(1),
+						DateTimeFormatter.BASIC_ISO_DATE);
+				for (Integer year : dateRange.getYearsBetween()) {
+					yearMap.put(String.valueOf(year), dateRange);
+				}
+			} else {
+				LOGGER.warn("Invalid DateRange has more than two dashs: {}", dateInputRange);
+			}
+		}
 
-        LOGGER.info("Request: {}", yearMap);
+		LOGGER.info("Request: {}", yearMap);
 
 		List<PatentClassification> wantedClasses = new ArrayList<PatentClassification>();
 		List<String> cpcs = Splitter.on(',').omitEmptyStrings().trimResults().splitToList(cpc);
@@ -315,12 +321,12 @@ public class Corpus {
 			wantedClasses.add(usClass);
 		}
 
-        BulkData downloader = new BulkData(downloadDir, dataType, yearMap, false);
+		BulkData downloader = new BulkData(downloadDir, dataType, yearMap, false);
 
 		CorpusMatch<?> corpusMatch;
-		if ("xml".equalsIgnoreCase(eval)){
+		if ("xml".equalsIgnoreCase(eval)) {
 			corpusMatch = new MatchClassificationXPath(wantedClasses);
-			//corpusMatch = new MatchClassificationXPathSGML(wantedClasses);
+			// corpusMatch = new MatchClassificationXPathSGML(wantedClasses);
 		} else {
 			corpusMatch = new MatchClassificationPatent(wantedClasses);
 		}
@@ -329,11 +335,9 @@ public class Corpus {
 		if ("zip".equalsIgnoreCase(out)) {
 			Path zipFilePath = downloadDir.resolve(name + ".zip");
 			writer = new ZipArchiveWriter(zipFilePath);
-		}
-		else if ("dummy".equalsIgnoreCase(out)) {
+		} else if ("dummy".equalsIgnoreCase(out)) {
 			writer = new DummyWriter();
-		}
-		else {
+		} else {
 			Path xmlFilePath = downloadDir.resolve(name + ".xml");
 			writer = new SingleXmlWriter(xmlFilePath, true);
 		}

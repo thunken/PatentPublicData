@@ -20,7 +20,8 @@ import gov.uspto.patent.model.classification.PatentClassification;
 import gov.uspto.patent.model.classification.UspcClassification;
 
 /**
- *  Match Patents by instantiating each Patent and then matching on Classification.
+ * Match Patents by instantiating each Patent and then matching on
+ * Classification.
  * 
  * @author Brian G. Feldman (brian.feldman@uspto.gov)
  *
@@ -40,7 +41,7 @@ public class MatchClassificationPatent implements CorpusMatch<MatchClassificatio
 	}
 
 	@SuppressWarnings("unchecked")
-    @Override
+	@Override
 	public void setup() throws XPathExpressionException {
 		wantedCPC = PatentClassification.filterByType(wantedClasses, ClassificationType.CPC);
 		wantedUSPC = PatentClassification.filterByType(wantedClasses, ClassificationType.USPC);
@@ -52,9 +53,10 @@ public class MatchClassificationPatent implements CorpusMatch<MatchClassificatio
 	}
 
 	@Override
-	public MatchClassificationPatent on(String xmlDocStr, PatentDocFormat patentDocFormat) throws PatentReaderException, IOException {
-	    PatentReader patentReader = new PatentReader(patentDocFormat);
-        try (StringReader rawText = new StringReader(xmlDocStr)) {
+	public MatchClassificationPatent on(String xmlDocStr, PatentDocFormat patentDocFormat)
+			throws PatentReaderException, IOException {
+		PatentReader patentReader = new PatentReader(patentDocFormat);
+		try (StringReader rawText = new StringReader(xmlDocStr)) {
 			patent = patentReader.read(rawText);
 		}
 		return this;
@@ -67,7 +69,8 @@ public class MatchClassificationPatent implements CorpusMatch<MatchClassificatio
 		}
 
 		@SuppressWarnings("unchecked")
-		SortedSet<PatentClassification> patentCPC = PatentClassification.filterByType(patent.getClassification(), ClassificationType.CPC);
+		SortedSet<PatentClassification> patentCPC = PatentClassification.filterByType(patent.getClassification(),
+				ClassificationType.CPC);
 		for (PatentClassification wantedCpcClass : wantedCPC) {
 			CpcClassification wantedCpc = (CpcClassification) wantedCpcClass;
 
@@ -76,14 +79,15 @@ public class MatchClassificationPatent implements CorpusMatch<MatchClassificatio
 				if (cpc.getSection() == wantedCpc.getSection() && cpc.getMainClass() == wantedCpc.getMainClass()
 						&& cpc.getSubClass() == wantedCpc.getSubClass()
 						&& cpc.getMainGroup() == wantedCpc.getMainGroup()) {
-					lastPatternMatch="cpc";
+					lastPatternMatch = "cpc";
 					return true;
 				}
 			}
 		}
 
 		@SuppressWarnings("unchecked")
-        SortedSet<PatentClassification> patentUSPC = PatentClassification.filterByType(patent.getClassification(), ClassificationType.USPC);
+		SortedSet<PatentClassification> patentUSPC = PatentClassification.filterByType(patent.getClassification(),
+				ClassificationType.USPC);
 		for (PatentClassification wantedUspcClass : wantedUSPC) {
 			UspcClassification wantedUspc = (UspcClassification) wantedUspcClass;
 
@@ -91,7 +95,7 @@ public class MatchClassificationPatent implements CorpusMatch<MatchClassificatio
 				UspcClassification uspc = (UspcClassification) usclass;
 
 				if (uspc.getMainClass().equals(wantedUspc.getMainClass())) {
-					lastPatternMatch="uspc";
+					lastPatternMatch = "uspc";
 					return true;
 				}
 			}

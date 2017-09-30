@@ -11,11 +11,11 @@ import com.google.common.base.Preconditions;
 /**
  * Write Directly to ZipArchive
  * 
- *<pre>
+ * <pre>
  * Limitations: 
  *   1) When writing one single large file within zipfile, if process is interrupted then zipfile will remain unreadable.
  *   2) File within ZipFile can not be appended to, once closed.
- *</pre>
+ * </pre>
  *
  * @author Brian G. Feldman (brian.feldman@uspto.gov)
  *
@@ -48,7 +48,7 @@ public class ZipArchiveWriter implements Writer {
 
 	@Override
 	public void close() throws IOException {
-		if (outputZip != null){
+		if (outputZip != null) {
 			outputZip.closeArchiveEntry();
 			outputZip.close();
 		}

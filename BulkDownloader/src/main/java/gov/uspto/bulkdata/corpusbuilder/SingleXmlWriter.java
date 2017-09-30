@@ -31,7 +31,7 @@ public class SingleXmlWriter implements Writer {
 
 	@Override
 	public void close() throws IOException {
-		if (outputStream != null){
+		if (outputStream != null) {
 			outputStream.close();
 		}
 		outputStream = null;

@@ -17,7 +17,7 @@ import com.google.common.base.Preconditions;
 
 public class PatternXPath extends MatchXPath {
 	private static final Logger LOGGER = LoggerFactory.getLogger(PatternXPath.class);
-	
+
 	private final List<XPathExpression> xPaths = new ArrayList<XPathExpression>();
 	private String[] xPathExpressions;
 

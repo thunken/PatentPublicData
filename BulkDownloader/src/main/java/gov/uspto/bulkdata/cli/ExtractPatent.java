@@ -62,7 +62,7 @@ public class ExtractPatent {
 				break;
 			}
 
-			if (xmlDocStr != null){
+			if (xmlDocStr != null) {
 				try (StringReader rawText = new StringReader(xmlDocStr)) {
 					Patent patent = patentReader.read(rawText);
 					write(xmlDocStr, outdir, patent.getDocumentId().toText(), isAps);
@@ -73,9 +73,8 @@ public class ExtractPatent {
 
 			/*
 			 * Match matcher = new
-			 * MatchValueRegex("//classification-national/main-classification",
-			 * "^166.+"); if (matcher.match(xmlDocStr){
-			 * LOGGER.info("found matching document."); }
+			 * MatchValueRegex("//classification-national/main-classification", "^166.+");
+			 * if (matcher.match(xmlDocStr){ LOGGER.info("found matching document."); }
 			 */
 
 		}
@@ -121,7 +120,7 @@ public class ExtractPatent {
 		} else {
 			ext = ".txt";
 		}
-		
+
 		Path outPath = directory.resolve(filename + ext);
 
 		try (Writer outfile = new FileWriter(outPath.toFile())) {
@@ -148,9 +147,8 @@ public class ExtractPatent {
 				accepts("id").withOptionalArg().ofType(String.class).describedAs("Patent Id");
 				accepts("limit").withOptionalArg().ofType(Integer.class).describedAs("record limit").defaultsTo(1);
 				accepts("skip").withOptionalArg().ofType(Integer.class).describedAs("records to skip").defaultsTo(0);
-				accepts("xmlBodyTag").withOptionalArg().ofType(String.class)
-						.describedAs(
-								"XML Body Tag which wrapps document: [us-patent, PATDOC, patent-application-publication]")
+				accepts("xmlBodyTag").withOptionalArg().ofType(String.class).describedAs(
+						"XML Body Tag which wrapps document: [us-patent, PATDOC, patent-application-publication]")
 						.defaultsTo("us-patent");
 				accepts("addHtmlEntities").withOptionalArg().ofType(Boolean.class)
 						.describedAs("Add Html Entities DTD to XML; Needed when reading Patents in PAP format.")
@@ -178,33 +176,33 @@ public class ExtractPatent {
 		}
 
 		ExtractPatent extract = new ExtractPatent();
-		
-        FileFilterChain filters = new FileFilterChain();
 
-        DumpReader dumpReader;
-        if (aps) {
-            dumpReader = new DumpFileAps(inputFile);
-            //filter.addRule(new SuffixFileFilter("txt"));
-        } else {
-            PatentDocFormat patentDocFormat = new PatentDocFormatDetect().fromFileName(inputFile);
-            switch (patentDocFormat) {
-            case Greenbook:
-                aps = true;
-                dumpReader = new DumpFileAps(inputFile);
-                //filters.addRule(new PathFileFilter(""));
-                //filters.addRule(new SuffixFilter("txt"));
-                break;
-            default:
-                DumpFileXml dumpXml = new DumpFileXml(inputFile);
-    			if (PatentDocFormat.Pap.equals(patentDocFormat) || addHtmlEntities) {
-    				dumpXml.addHTMLEntities();
-    			}
-                dumpReader = dumpXml;
-                filters.addRule(new SuffixFileFilter("xml"));
-            }
-        }
+		FileFilterChain filters = new FileFilterChain();
 
-        dumpReader.setFileFilter(filters);
+		DumpReader dumpReader;
+		if (aps) {
+			dumpReader = new DumpFileAps(inputFile);
+			// filter.addRule(new SuffixFileFilter("txt"));
+		} else {
+			PatentDocFormat patentDocFormat = new PatentDocFormatDetect().fromFileName(inputFile);
+			switch (patentDocFormat) {
+			case Greenbook:
+				aps = true;
+				dumpReader = new DumpFileAps(inputFile);
+				// filters.addRule(new PathFileFilter(""));
+				// filters.addRule(new SuffixFilter("txt"));
+				break;
+			default:
+				DumpFileXml dumpXml = new DumpFileXml(inputFile);
+				if (PatentDocFormat.Pap.equals(patentDocFormat) || addHtmlEntities) {
+					dumpXml.addHTMLEntities();
+				}
+				dumpReader = dumpXml;
+				filters.addRule(new SuffixFileFilter("xml"));
+			}
+		}
+
+		dumpReader.setFileFilter(filters);
 
 		dumpReader.open();
 		dumpReader.skip(skip);

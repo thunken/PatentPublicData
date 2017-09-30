@@ -12,9 +12,10 @@ import okhttp3.OkHttpClient;
 /**
  * Download File from URL.
  * 
- *<p>
- *--url="http://opennlp.sourceforge.net/models-1.5/en-sent.bin" --dir="../download"
- *<p>
+ * <p>
+ * --url="http://opennlp.sourceforge.net/models-1.5/en-sent.bin"
+ * --dir="../download"
+ * <p>
  * 
  * @author Brian G. Feldman (brian.feldman@uspto.gov)
  *
@@ -22,7 +23,7 @@ import okhttp3.OkHttpClient;
 public class DownloadFile extends Downloader {
 	private final transient static OkHttpClient client = new OkHttpClient();
 
-	public DownloadFile(){
+	public DownloadFile() {
 		super(client, 3);
 	}
 
@@ -31,7 +32,8 @@ public class DownloadFile extends Downloader {
 		OptionParser parser = new OptionParser() {
 			{
 				accepts("url").withRequiredArg().ofType(String.class).describedAs("url string").required();
-				accepts("dir").withOptionalArg().ofType(String.class).describedAs("download directory").defaultsTo("download");
+				accepts("dir").withOptionalArg().ofType(String.class).describedAs("download directory")
+						.defaultsTo("download");
 			}
 		};
 

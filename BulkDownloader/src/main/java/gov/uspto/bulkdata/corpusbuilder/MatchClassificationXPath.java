@@ -31,16 +31,17 @@ public class MatchClassificationXPath implements CorpusMatch<MatchClassification
 
 	private PatentDocFormat patentDocFormat;
 
-	public MatchClassificationXPath(List<PatentClassification> wantedClasses){
+	public MatchClassificationXPath(List<PatentClassification> wantedClasses) {
 		this.wantedClasses = wantedClasses;
 	}
 
 	@Override
-	public void setup() throws XPathExpressionException{
+	public void setup() throws XPathExpressionException {
 		matcher = new PatternMatcher();
 
 		@SuppressWarnings("unchecked")
-		SortedSet<PatentClassification> cpcClasses = PatentClassification.filterByType(wantedClasses, ClassificationType.CPC);
+		SortedSet<PatentClassification> cpcClasses = PatentClassification.filterByType(wantedClasses,
+				ClassificationType.CPC);
 		for (PatentClassification cpcClass : cpcClasses) {
 			CpcClassification cpc = (CpcClassification) cpcClass;
 			String CPCXpathStr = buildCPCxPathString(cpc);
@@ -50,7 +51,8 @@ public class MatchClassificationXPath implements CorpusMatch<MatchClassification
 		}
 
 		@SuppressWarnings("unchecked")
-		SortedSet<PatentClassification> uspcClasses = PatentClassification.filterByType(wantedClasses, ClassificationType.USPC);
+		SortedSet<PatentClassification> uspcClasses = PatentClassification.filterByType(wantedClasses,
+				ClassificationType.USPC);
 		for (PatentClassification uspcClass : uspcClasses) {
 			UspcClassification uspc = (UspcClassification) uspcClass;
 			String UspcXpathStr = buildUSPCxPathString(uspc);
@@ -75,11 +77,12 @@ public class MatchClassificationXPath implements CorpusMatch<MatchClassification
 	@Override
 	public String getLastMatchPattern() {
 		return matcher.getLastMatchedPattern().toString();
-	}	
+	}
 
 	/**
 	 * 
-	 * Note matches on Patent Classification as well any Cited Patent Classifications (Citations are only publicly available within Grants).
+	 * Note matches on Patent Classification as well any Cited Patent
+	 * Classifications (Citations are only publicly available within Grants).
 	 * 
 	 * @param uspcClass
 	 * @return
@@ -96,7 +99,9 @@ public class MatchClassificationXPath implements CorpusMatch<MatchClassification
 	 * 
 	 * Build XPath Expression for CPC Classification lookup.
 	 * 
-	 * "//classifications-cpc/main-cpc/classification-cpc[section/text()='H' and class/text()='04' and subclass/text()='N' and main-group[starts-with(.,'21')]]"
+	 * "//classifications-cpc/main-cpc/classification-cpc[section/text()='H' and
+	 * class/text()='04' and subclass/text()='N' and
+	 * main-group[starts-with(.,'21')]]"
 	 * 
 	 * @param cpcClass
 	 * @return

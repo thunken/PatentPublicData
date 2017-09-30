@@ -27,7 +27,7 @@ public class PatternXpathValueRegex extends MatchXPath {
 		setup(xPathExpression, regexPattern);
 	}
 
-	private void setup(String xPathExpression, String[] regexPattern) throws XPathExpressionException{
+	private void setup(String xPathExpression, String[] regexPattern) throws XPathExpressionException {
 		XPathFactory fact = XPathFactory.newInstance();
 		XPath xpath = fact.newXPath();
 		this.xPathExpression = xpath.compile(xPathExpression);
@@ -63,7 +63,7 @@ public class PatternXpathValueRegex extends MatchXPath {
 		}
 		return false;
 	}
-	
+
 	@Override
 	public String toString() {
 		return "PatternXpathValueRegex [regexs=" + regexs + ", xPathExpression=" + xPathExpression + "]";

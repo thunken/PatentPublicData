@@ -24,21 +24,26 @@ import com.google.common.base.Preconditions;
  * Match XML value retrieved through XPATH against REGEX pattern.
  * <p>
  * Match Value
+ * 
  * <pre>
- * {@code
- * MatchValueRegex matcher = MatchValueRegex("/doc/id", "^US12345.+$");
- * matcher.match(xmlDocString);
+ * {
+ * 	&#64;code
+ * 	MatchValueRegex matcher = MatchValueRegex("/doc/id", "^US12345.+$");
+ * 	matcher.match(xmlDocString);
  * }
  * </pre>
  * 
  * Match Attribute
+ * 
  * <pre>
- * {@code
- * MatchValueRegex matcher = MatchValueRegex("/doc/@id", "^US12345.+$");
- * matcher.match(xmlDocString);
+ * {
+ * 	&#64;code
+ * 	MatchValueRegex matcher = MatchValueRegex("/doc/@id", "^US12345.+$");
+ * 	matcher.match(xmlDocString);
  * }
  * </pre>
  * </p>
+ * 
  * @author Brian G. Feldman (brian.feldman@uspto.gov)
  *
  */
@@ -48,7 +53,7 @@ public class MatchValueRegex implements Match {
 	private final String xPathExpression;
 	private final Pattern regexPattern;
 
-	public MatchValueRegex(final String xPathExpression, final String fullRegexPattern){
+	public MatchValueRegex(final String xPathExpression, final String fullRegexPattern) {
 		Preconditions.checkNotNull(xPathExpression, "xPathExpression can not be null");
 		Preconditions.checkNotNull(fullRegexPattern, "Regex can not be null");
 
@@ -57,8 +62,8 @@ public class MatchValueRegex implements Match {
 	}
 
 	@Override
-	public boolean match(String xmlDocStr){
-		if (xmlDocStr == null){
+	public boolean match(String xmlDocStr) {
+		if (xmlDocStr == null) {
 			return false;
 		}
 
@@ -68,17 +73,17 @@ public class MatchValueRegex implements Match {
 		try {
 
 			DocumentBuilder builder = dbfact.newDocumentBuilder();
-	        InputSource inputSource = new InputSource(new StringReader(xmlDocStr));
-	
+			InputSource inputSource = new InputSource(new StringReader(xmlDocStr));
+
 			org.w3c.dom.Document document = builder.parse(inputSource);
 			XPathFactory fact = XPathFactory.newInstance();
 			XPath xpath = fact.newXPath();
 
 			String value = (String) xpath.evaluate(xPathExpression, document, XPathConstants.STRING);
 			Matcher matcher = regexPattern.matcher(value);
-	        if (matcher.matches()){
-	        	return true;
-	        }
+			if (matcher.matches()) {
+				return true;
+			}
 		} catch (XPathExpressionException e) {
 			LOGGER.error("XML XPathExpressionException on doc:{}", xmlDocStr, e);
 			return false;
@@ -93,6 +98,6 @@ public class MatchValueRegex implements Match {
 			return false;
 		}
 
-        return false;
+		return false;
 	}
 }
